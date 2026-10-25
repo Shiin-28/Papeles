@@ -66,6 +66,11 @@ function assertUniqueIds(list: Service[]) {
       }
     }
     const variantIds = new Set(s.variants?.map((v) => v.id));
+    for (const v of variantIds) {
+      // Variant ids are used in CSS selectors on the service page.
+      if (!/^[a-z0-9-]+$/.test(v))
+        throw new Error(`Variant id "${v}" in ${s.slug} must be kebab-case`);
+    }
     for (const items of Object.values(groups)) {
       for (const item of items as { id: string; appliesTo?: string[] }[]) {
         for (const v of item.appliesTo ?? []) {
