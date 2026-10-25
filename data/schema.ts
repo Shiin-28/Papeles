@@ -35,7 +35,7 @@ export interface Variant {
   label: string;
 }
 
-export type CopyType = "original" | "photocopy" | "original-and-photocopy";
+export type CopyType = "original" | "photocopy" | "original-and-photocopy" | "scanned";
 
 export interface Requirement extends Verifiable {
   /** Stable id: used for checklist progress and outdated-info reports. Don't rename casually. */
@@ -50,23 +50,27 @@ export interface Requirement extends Verifiable {
   conditional?: boolean;
   /** For "valid ID" style requirements. */
   acceptableIds?: Maybe<string[]>;
+  /** Slug of another Papeles guide that explains how to get this document. */
+  relatedService?: string;
 }
 
 export interface Step extends Verifiable {
   id: string;
   title: string;
-  description: string;
+  description: Maybe<string>;
   /** Can this step be done online? */
   online?: boolean;
   url?: Maybe<string>;
   appliesTo?: string[];
 }
 
+export type FeeAmount = number | { min: number; max: number };
+
 export interface Fee extends Verifiable {
   id: string;
   label: string;
-  /** Amount in PHP. */
-  amount: Maybe<number>;
+  /** Amount in PHP. 0 means free. */
+  amount: Maybe<FeeAmount>;
   notes?: string;
   appliesTo?: string[];
 }
@@ -91,6 +95,7 @@ export interface Office extends Verifiable {
   city: string;
   region: string;
   hours?: Maybe<string>;
+  notes?: string;
 }
 
 export type OnlineAvailability = "full" | "partial" | "none";
@@ -105,7 +110,8 @@ export interface Service extends Verifiable {
   /** Extra search terms: Filipino words, common misspellings, related phrases. */
   keywords: string[];
   popular?: boolean;
-  appointmentUrl?: Maybe<string>;
+  /** Shown as the "online" button next to "Official website", e.g. booking or online application. */
+  appointment?: { url: Maybe<string>; label: string };
   online: Verifiable & { availability: Maybe<OnlineAvailability>; notes?: string };
   variants?: Variant[];
   requirements: Requirement[];

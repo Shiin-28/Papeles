@@ -1,51 +1,78 @@
-import { TriangleAlert } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BadgeCheck, ListChecks, Timer } from "lucide-react";
+import { getSearchEntries, services } from "@/data/services";
+import { SearchBar } from "@/components/search/search-bar";
+import { PopularShortcuts } from "@/components/search/popular-shortcuts";
+import { ServiceCard } from "@/components/service/service-card";
+import { FadeIn } from "@/components/fade-in";
 
-// Stage 1 placeholder: a quick look at the design tokens. Replaced by the real homepage in stage 2.
+const FEATURES = [
+  {
+    icon: BadgeCheck,
+    title: "Checked against official sources",
+    body: "Every requirement and fee links to the agency page it came from, with the date we last checked it.",
+  },
+  {
+    icon: ListChecks,
+    title: "A checklist you can tick off",
+    body: "Mark what you already have. Your progress stays on your phone, and you can print it.",
+  },
+  {
+    icon: Timer,
+    title: "Real wait times",
+    body: "See how long people actually waited at each branch in the last 30 days, and share your own.",
+  },
+];
+
 export default function Home() {
+  const entries = getSearchEntries();
+
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 py-12">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Papeles</h1>
-        <p className="text-muted-foreground">Design system preview: stage 1.</p>
-      </div>
+    <div className="mx-auto max-w-5xl px-4">
+      <section className="flex flex-col items-center pt-12 pb-10 text-center sm:pt-20 sm:pb-14">
+        <FadeIn>
+          <p className="mb-4 inline-flex rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+            Philippine government requirements, step by step
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.05}>
+          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+            Know exactly what to bring.
+          </h1>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <p className="mt-4 max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
+            Requirements, fees, steps, and wait times for government documents, so you get it done
+            in one trip.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.15} className="mt-8 w-full max-w-2xl">
+          <SearchBar entries={entries} />
+        </FadeIn>
+        <FadeIn delay={0.2} className="mt-5">
+          <PopularShortcuts entries={entries} />
+        </FadeIn>
+      </section>
 
-      <div className="flex flex-wrap gap-2">
-        <Button>Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-      </div>
+      <section aria-labelledby="all-guides" className="pb-14">
+        <h2 id="all-guides" className="mb-4 text-lg font-semibold">
+          All guides
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <ServiceCard key={s.slug} service={s} />
+          ))}
+        </div>
+      </section>
 
-      <div className="flex flex-wrap gap-2">
-        <Badge>Badge</Badge>
-        <Badge variant="secondary">Secondary</Badge>
-        <Badge variant="outline">Outline</Badge>
-      </div>
-
-      <div className="flex items-start gap-3 rounded-xl border border-warning-border bg-warning p-4 text-sm text-warning-foreground">
-        <TriangleAlert className="mt-0.5 size-4 shrink-0" />
-        <p>May be outdated. Double-check the official site.</p>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Card title</CardTitle>
-            <CardDescription>Rounded card with comfortable spacing.</CardDescription>
-          </CardHeader>
-          <CardContent className="text-sm">Body text in Plus Jakarta Sans.</CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Another card</CardTitle>
-            <CardDescription>Switch the theme from the header.</CardDescription>
-          </CardHeader>
-          <CardContent className="text-sm">Light, dark, or system.</CardContent>
-        </Card>
-      </div>
+      <section aria-label="How Papeles works" className="grid gap-6 border-t py-12 sm:grid-cols-3">
+        {FEATURES.map((f) => (
+          <div key={f.title} className="space-y-2">
+            <f.icon className="size-6 text-primary" aria-hidden />
+            <h3 className="font-semibold">{f.title}</h3>
+            <p className="text-sm text-muted-foreground">{f.body}</p>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
