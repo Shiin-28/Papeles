@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { FileCheck2 } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { HeaderAutoHide } from "@/components/layout/header-auto-hide";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b bg-card print:hidden">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 lg:px-8">
+    <header
+      data-site-header
+      data-hidden="false"
+      className="group sticky top-0 z-40 border-b bg-card transition-transform duration-200 data-[hidden=true]:-translate-y-full print:hidden"
+    >
+      <HeaderAutoHide />
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 transition-opacity duration-200 group-data-[hidden=true]:opacity-0 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight">
           <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <FileCheck2 className="size-4.5" aria-hidden />

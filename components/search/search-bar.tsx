@@ -21,7 +21,10 @@ const FUSE_OPTIONS: IFuseOptions<SearchEntry> = {
   ],
   threshold: 0.4,
   ignoreLocation: true,
+  includeScore: true,
 };
+
+const SCORE_MARGIN = 0.15;
 
 /** Plain substring match, used for the moment before Fuse.js has loaded. */
 function simpleMatch(entries: SearchEntry[], q: string) {
@@ -33,7 +36,17 @@ function simpleMatch(entries: SearchEntry[], q: string) {
   );
 }
 
-export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; autoFocus?: boolean }) {
+export function SearchBar({
+  entries,
+  autoFocus,
+  size = "md",
+}: {
+  entries: SearchEntry[];
+  autoFocus?: boolean;
+  /** "sm" is the compact bar shown in the header after scrolling. */
+  size?: "md" | "sm";
+}) {
+  const small = size === "sm";
   const router = useRouter();
   const listId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,7 +69,11 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
   const results = useMemo(() => {
     if (!trimmed) return [];
     if (!fuse) return simpleMatch(entries, trimmed).slice(0, 6);
-    return fuse.search(trimmed, { limit: 6 }).map((r) => r.item);
+    // Tolerant enough for typos ("pasport"), but drop results far weaker than the best match
+    // so "postal" doesn't also list unrelated guides.
+    const results = fuse.search(trimmed, { limit: 6 });
+    const best = results[0]?.score ?? 0;
+    return results.filter((r) => (r.score ?? 0) <= best + SCORE_MARGIN).map((r) => r.item);
   }, [fuse, entries, trimmed]);
   const showPanel = open && trimmed.length > 0;
   const activeIndex = Math.min(active, Math.max(results.length - 1, 0));
@@ -89,11 +106,16 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
     <div className="relative w-full">
       <div
         className={cn(
-          "flex h-13 items-center gap-3 rounded-lg border border-input bg-background px-4 sm:h-14",
+          small
+            ? "flex h-10 items-center gap-2 rounded-md border border-input bg-background px-3"
+            : "flex h-13 items-center gap-3 rounded-lg border border-input bg-background px-4 sm:h-14",
           "focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/20",
         )}
       >
-        <Search className="size-5 shrink-0 text-muted-foreground" aria-hidden />
+        <Search
+          className={cn("shrink-0 text-muted-foreground", small ? "size-4" : "size-5")}
+          aria-hidden
+        />
         <input
           ref={inputRef}
           type="search"
@@ -108,8 +130,12 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
           autoFocus={autoFocus}
           autoComplete="off"
           enterKeyHint="search"
-          placeholder="Try “passport”, “NBI”, “birth certificate”…"
-          className="h-full w-full min-w-0 bg-transparent text-base outline-none placeholder:text-muted-foreground sm:text-lg [&::-webkit-search-cancel-button]:hidden"
+          placeholder={small ? "Search guides…" : "Try “passport”, “NBI”, “birth certificate”…"}
+          // Stays at 16px (text-base) even when small, so phones don't zoom in on focus.
+          className={cn(
+            "h-full w-full min-w-0 bg-transparent text-base outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden",
+            !small && "sm:text-lg",
+          )}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
