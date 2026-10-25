@@ -9,6 +9,9 @@ const FEES =
 // Press release, 17 October 2024: process (on-site capture, delivery to mailing address).
 const PROCESS =
   "https://phlpost.gov.ph/cpt-press-releases/phlpost-announces-the-resumption-on-the-issuance-of-postal-id-as-functional-card/";
+// Press release, 27 November 2024: forms are at capturing stations and downloadable online.
+const FORMS_AVAILABLE =
+  "https://phlpost.gov.ph/cpt-press-releases/dfa-reaffirm-acceptance-of-postal-id/";
 const FORM =
   "https://phlpost.gov.ph/wp-content/uploads/2024/10/PID-Application-Form_101024-1-1.pdf";
 
@@ -108,7 +111,7 @@ export const postalId = {
       online: true,
       form: { name: "Postal ID application form", url: FORM, format: "PDF", sizeKB: 1376 },
       lastVerified: "2026-10-25",
-      sourceUrl: FEES,
+      sourceUrl: FORMS_AVAILABLE,
     },
     {
       id: "submit-pay",

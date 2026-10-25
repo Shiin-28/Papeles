@@ -107,16 +107,8 @@ export const dfaPassport = {
     {
       id: "pay",
       title: "Pay the passport fee",
-      description: "Pay using one of the options shown during booking.",
+      description: TODO,
       online: true,
-      lastVerified: null,
-      sourceUrl: TODO,
-    },
-    {
-      id: "confirmation",
-      title: "Print your appointment packet",
-      description:
-        "After paying, you'll receive a confirmation email with your appointment packet.",
       lastVerified: null,
       sourceUrl: TODO,
     },
@@ -160,17 +152,7 @@ export const dfaPassport = {
     { id: "regular", label: "Regular", duration: TODO, lastVerified: null, sourceUrl: TODO },
     { id: "expedited", label: "Expedited", duration: TODO, lastVerified: null, sourceUrl: TODO },
   ],
-  offices: [
-    {
-      id: "dfa-aseana",
-      name: "DFA Office of Consular Affairs – ASEANA",
-      address: TODO,
-      city: "Parañaque",
-      region: "NCR",
-      hours: TODO,
-      lastVerified: null,
-      sourceUrl: TODO,
-    },
-  ],
+  // No offices listed until DFA's consular office list can be checked.
+  offices: [],
   officeLocatorUrl: TODO,
 } satisfies Service;

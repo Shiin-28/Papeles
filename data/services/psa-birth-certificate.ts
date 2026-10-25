@@ -259,21 +259,11 @@ export const psaBirthCertificate = {
       sourceUrl: TODO,
     },
   ],
-  offices: [
-    {
-      id: "psa-east-avenue",
-      name: "PSA CRS Outlet – East Avenue",
-      address: TODO,
-      city: "Quezon City",
-      region: "NCR",
-      hours: TODO,
-      lastVerified: null,
-      sourceUrl: OUTLETS,
-    },
-  ],
+  // No outlets listed: PSA's outlet directory (psa.gov.ph) couldn't be read, so we link to it instead.
+  offices: [],
   officeLocatorUrl: OUTLETS,
   tips: [
-    "Only these people can get a copy: the owner (or their authorized representative); their spouse, parent, direct descendants, or guardian if the owner is a minor; a court or official when necessary; or the nearest of kin if the owner has died.",
+    "PSA issues civil registry documents only to: (1) the owner, or through a duly authorized representative; (2) the owner's spouse, parent, direct descendants, guardian, or institution legally in charge of them, if a minor; (3) a court or proper public official when absolutely necessary in administrative, judicial, or other proceedings; (4) the nearest of kin, if the owner has died.",
     "Under RA 11909, PSA-issued certificates of live birth, death, and marriage have permanent validity.",
   ],
 } satisfies Service;

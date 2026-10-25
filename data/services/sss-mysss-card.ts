@@ -181,7 +181,7 @@ export const sssMysssCard = {
   ],
   offices: [],
   tips: [
-    "Old SSS cards, including the UMID, are still valid. You only need a MySSS Card if you want one, or to replace a lost or damaged card or update your details.",
+    "All previously issued SSS cards, including the UMID, are still valid. You can still apply for a MySSS Card if needed, for example to replace a lost or damaged card or update your information.",
     "SSS says other government agencies and private institutions aren't required to accept the MySSS Card as an ID; each decides for itself.",
     "The MySSS Card account automatically becomes the account where SSS sends your benefits and loan proceeds.",
     "You can only have one MySSS Card with one bank at a time. To switch banks, close your current MySSS Card account first.",

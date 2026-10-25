@@ -59,6 +59,8 @@ export interface Requirement extends Verifiable {
   conditional?: boolean;
   /** For "valid ID" style requirements. */
   acceptableIds?: Maybe<string[]>;
+  /** The agency gives the IDs above only as examples ("e.g."), not a complete list. */
+  acceptableIdsAreExamples?: boolean;
   /** Slug of another Papeles guide that explains how to get this document. */
   relatedService?: string;
   /** Official form to download and fill out, if this requirement is a form. */

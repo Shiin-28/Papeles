@@ -42,7 +42,8 @@ export function RequirementRow({ req, note }: { req: Requirement; note?: boolean
         ) : (
           <details className="group text-sm">
             <summary className="cursor-pointer font-medium text-primary marker:text-muted-foreground print:hidden">
-              Accepted IDs ({req.acceptableIds.length})
+              {req.acceptableIdsAreExamples ? "Examples of accepted IDs" : "Accepted IDs"} (
+              {req.acceptableIds.length})
             </summary>
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {req.acceptableIds.map((id) => (

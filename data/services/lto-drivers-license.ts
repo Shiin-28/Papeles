@@ -148,17 +148,7 @@ export const ltoDriversLicense = {
       sourceUrl: TODO,
     },
   ],
-  offices: [
-    {
-      id: "lto-central-east-avenue",
-      name: "LTO Central Office – East Avenue",
-      address: TODO,
-      city: "Quezon City",
-      region: "NCR",
-      hours: TODO,
-      lastVerified: null,
-      sourceUrl: TODO,
-    },
-  ],
+  // No offices listed until LTO's office list can be checked.
+  offices: [],
   officeLocatorUrl: TODO,
 } satisfies Service;

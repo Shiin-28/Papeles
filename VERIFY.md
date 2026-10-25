@@ -59,5 +59,18 @@ Open the page yourself before you copy any of them into the data.
 - The fee went from ₱100 (2016 FAQ) to ₱75 (2021 notice). Confirm it's still ₱75, and whether the main office still requires an appointment.
 - The office hours and address are from May 2021.
 
-### Offices that aren't verified at all
-These were seeded so wait-time reports have somewhere to point. Their names come from general knowledge, not an official page: DFA ASEANA, PSA East Avenue, LTO Central Office East Avenue. Confirm each one, or remove it.
+### Offices removed for accuracy
+DFA ASEANA, PSA East Avenue, and LTO Central Office East Avenue were removed on 2026-10-25 because their names came from general knowledge, not an official page. Add offices back (with `sourceUrl`) once you can read the agencies' office lists. Guides without offices don't show the wait-times section.
+
+## Sites that blocked automated access (as of 2026-10-25)
+
+| Site | What it returned | What we needed it for |
+|---|---|---|
+| `passport.gov.ph`, `dfa.gov.ph`, `consular.dfa.gov.ph` | 403 (bot protection) | **Passport:** requirements for new and renewal applicants, accepted ID list, fees (regular/expedited), processing times, payment methods, the steps after booking, consular office list |
+| `lto.gov.ph` (incl. the 2025 Citizen's Charter PDF) | 403 (bot protection) | **Driver's license:** requirements, fees, processing time, payment methods, step-by-step at the licensing office, office list |
+| `psa.gov.ph` (incl. regional `*.psa.gov.ph` PDFs) | 403 (bot protection) | **PSA birth certificate:** walk-in outlet requirements, fee, processing time, outlet directory. **National ID:** PSA's PhilSys citizen's charter |
+| `philsys.gov.ph` | Redirects to a maintenance page | **National ID:** supporting documents, registration steps, fee, processing time, registration centers |
+| `gsis.gov.ph` | "Request Rejected" (firewall) | **GSIS e-Card / Digital ID:** no guide yet, nothing could be read |
+| `officialgazette.gov.ph` | 403 | **National ID:** the PhilSys law (RA 11055), as a fallback source |
+
+Readable official sources used: `nbi.gov.ph`, `bir.gov.ph` / `bir-cdn.bir.gov.ph`, `psaserbilis.com.ph` (PSA's official online portal), `sss.gov.ph`, `prc.gov.ph`, `phlpost.gov.ph`, `comelec.gov.ph`.

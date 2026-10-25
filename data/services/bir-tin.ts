@@ -70,6 +70,7 @@ export const birTin = {
       notes:
         "If the ID has no address, add any proof of residence. You'll also upload a selfie of you holding the ID.",
       acceptableIds: ACCEPTABLE_IDS,
+      acceptableIdsAreExamples: true,
       appliesTo: ONLINE,
       lastVerified: "2026-10-25",
       sourceUrl: CHARTER,
@@ -81,6 +82,7 @@ export const birTin = {
       copies: 1,
       notes: "If the ID has no address, add any proof of residence or business address.",
       acceptableIds: ACCEPTABLE_IDS,
+      acceptableIdsAreExamples: true,
       appliesTo: WALK_IN,
       lastVerified: "2026-10-25",
       sourceUrl: CHARTER,
@@ -183,10 +185,21 @@ export const birTin = {
       id: "orus-result",
       title: "Check your email and view your TIN in ORUS",
       description:
-        "You'll get an email about your application status. If approved, log in to ORUS to see your TIN. Most applications are approved automatically; only possible duplicate records go to the RDO for review.",
+        "You'll get an email about your application status. If approved, view your TIN in your ORUS profile.",
       online: true,
       url: ORUS,
-      appliesTo: ONLINE,
+      appliesTo: ["eo98-online"],
+      lastVerified: "2026-10-25",
+      sourceUrl: CHARTER,
+    },
+    {
+      id: "employee-orus-result",
+      title: "Check your email and view your TIN in ORUS",
+      description:
+        "You'll get an email about your application status. If approved, log in to ORUS to see your TIN. ORUS approves most applications automatically; only possible duplicate records are sent to the RDO for review.",
+      online: true,
+      url: ORUS,
+      appliesTo: ["employee-online"],
       lastVerified: "2026-10-25",
       sourceUrl: CHARTER,
     },
@@ -282,7 +295,7 @@ export const birTin = {
       region: "NCR",
       hours: "8:00 AM to 5:00 PM",
       notes:
-        "Walk-in applicants go to the RDO that covers where they live, so this office may not be yours.",
+        "BIR's Citizen's Charter names this RDO for nonresident applicants (e.g. nonresident Filipino citizens and some foreign nationals). Most walk-in applicants go to the RDO that covers where they live instead.",
       lastVerified: "2026-10-25",
       sourceUrl: CHARTER,
     },

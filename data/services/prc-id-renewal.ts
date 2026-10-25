@@ -195,8 +195,5 @@ export const prcIdRenewal = {
   ],
   offices: [],
   officeLocatorUrl: TODO,
-  tips: [
-    "You can renew if your PRC ID has already expired or will expire in less than a year.",
-    "This guide covers renewal. Your first PRC ID is issued when you register as a professional after passing the licensure exam.",
-  ],
+  tips: ["You can renew if your PRC ID has already expired or will expire in less than a year."],
 } satisfies Service;

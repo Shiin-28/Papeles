@@ -59,6 +59,7 @@ export const nbiClearance = {
       copy: "original",
       notes:
         "Must be original and not expired. Your name in the online form must match your IDs exactly.",
+      acceptableIdsAreExamples: true,
       acceptableIds: [
         "Passport",
         "Driver's License",
