@@ -23,40 +23,43 @@ export function ServiceHeader({
     service.appointment && !isTodo(service.appointment.url) ? service.appointment.url : null;
 
   return (
-    <header className="space-y-5">
-      <Link
-        href="/services"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground print:hidden"
-      >
-        <ChevronLeft className="size-4" aria-hidden />
-        All guides
-      </Link>
+    <header className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-x-10">
+      <div className="min-w-0 space-y-5">
+        <Link
+          href="/services"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground print:hidden"
+        >
+          <ChevronLeft className="size-4" aria-hidden />
+          All guides
+        </Link>
 
-      <div className="flex items-start gap-4">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary print:hidden">
-          <ServiceIcon slug={service.slug} className="size-6" />
-        </span>
-        <div className="min-w-0 space-y-1">
-          <p className="text-sm font-medium text-muted-foreground">
-            {service.agency.name} ({service.agency.acronym})
-          </p>
-          <h1 className="text-2xl font-bold tracking-tight text-balance sm:text-3xl">
-            {service.name}
-          </h1>
+        <div className="flex items-start gap-4">
+          <span className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary print:hidden">
+            <ServiceIcon slug={service.slug} className="size-6" />
+          </span>
+          <div className="min-w-0 space-y-1">
+            <p className="text-sm font-medium text-muted-foreground">
+              {service.agency.name} ({service.agency.acronym})
+            </p>
+            <h1 className="text-2xl font-bold tracking-tight text-balance sm:text-3xl">
+              {service.name}
+            </h1>
+          </div>
         </div>
+
+        <p className="text-pretty text-muted-foreground">{service.summary}</p>
+
+        <VerifiedDate date={service.lastVerified} className="text-sm" />
+
+        <StaleWarning
+          lastVerified={service.lastVerified}
+          unverifiedCount={countUnverified(service)}
+          officialUrl={officialUrl}
+        />
       </div>
 
-      <p className="text-pretty text-muted-foreground">{service.summary}</p>
-
-      <VerifiedDate date={service.lastVerified} className="text-sm" />
-
-      <StaleWarning
-        lastVerified={service.lastVerified}
-        unverifiedCount={countUnverified(service)}
-        officialUrl={officialUrl}
-      />
-
-      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap print:hidden">
+      {/* Phones: a row of buttons under the summary. Desktop: a stacked column on the right. */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap lg:flex-col lg:flex-nowrap lg:self-end print:hidden">
         {officialUrl ? (
           <a
             href={officialUrl}

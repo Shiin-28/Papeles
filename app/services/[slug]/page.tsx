@@ -29,6 +29,7 @@ import { ChecklistProgress } from "@/components/checklist/checklist-progress";
 import { WaitTimes } from "@/components/reports/wait-times";
 import { ReportOutdated } from "@/components/reports/report-outdated";
 import { reportOptions } from "@/lib/verification";
+import { AtAGlance } from "@/components/service/at-a-glance";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -72,7 +73,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const officialUrl = isTodo(service.agency.officialUrl) ? null : service.agency.officialUrl;
 
   return (
-    <div id={GUIDE_ID} className="mx-auto max-w-3xl px-4 pt-6 pb-16 print:p-0">
+    <div id={GUIDE_ID} className="mx-auto max-w-7xl px-4 pt-6 pb-16 lg:px-8 print:p-0">
       <VariantStyles service={service} />
       <ServiceHeader
         service={service}
@@ -84,120 +85,135 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         }
       />
 
-      {variants && (
-        <div className="mt-6">
-          <VariantPicker slug={service.slug} variants={variants} />
-        </div>
-      )}
+      {/*
+        Phones: one column (the left aside uses display: contents, so its section bar can stay
+        pinned while the whole page scrolls). Desktop: sticky left sidebar, content, and a sticky
+        "At a glance" column on wide screens.
+      */}
+      <div className="mt-6 lg:mt-10 lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[12rem_minmax(0,1fr)_18rem] print:mt-4 print:block">
+        <aside className="max-lg:contents lg:sticky lg:top-20 lg:space-y-6 lg:self-start print:hidden">
+          {variants && (
+            <div className="max-lg:mb-6">
+              <VariantPicker slug={service.slug} variants={variants} />
+            </div>
+          )}
+          <SectionNav sections={SECTIONS} />
+        </aside>
 
-      <div className="mt-6 print:hidden">
-        <SectionNav sections={SECTIONS} />
-      </div>
-
-      <div className="mt-8 space-y-12 print:mt-4">
-        <Section
-          id="requirements"
-          title="Requirements"
-          icon={ListChecks}
-          description="Tick off what you already have. Bring everything on this list."
-        >
-          <ChecklistProgress
-            slug={service.slug}
-            variants={variants}
-            items={service.requirements.map(({ id, appliesTo, conditional }) => ({
-              id,
-              appliesTo,
-              conditional,
-            }))}
-          />
-          <ul className="divide-y rounded-lg border bg-card">
-            {service.requirements.map((req) => (
-              <li
-                key={req.id}
-                {...appliesAttr(req)}
-                className="checklist-row flex gap-3 p-4 transition-colors has-checked:bg-muted/50 print:break-inside-avoid"
-              >
-                <CheckItem slug={service.slug} id={req.id} label={req.name} />
-                <RequirementRow req={req} />
-              </li>
-            ))}
-          </ul>
-          <p className="hidden text-xs print:block">
-            Printed from Papeles, an independent guide.
-            {officialUrl && <> Always confirm on the official site: {officialUrl}</>}
-          </p>
-        </Section>
-
-        <Section
-          id="steps"
-          title="Step by step"
-          icon={Footprints}
-          className="defer-render print:hidden"
-        >
-          <StepsList steps={service.steps} />
-        </Section>
-
-        <Section
-          id="fees"
-          title="Fees"
-          icon={CircleDollarSign}
-          className="defer-render print:hidden"
-        >
-          <FeesList fees={service.fees} payment={service.payment} />
-        </Section>
-
-        <Section
-          id="processing"
-          title="Processing time"
-          icon={Clock}
-          className="defer-render print:hidden"
-        >
-          <ProcessingList items={service.processingTimes} />
-        </Section>
-
-        <Section id="where" title="Where to go" icon={MapPin} className="defer-render print:hidden">
-          <WhereToGo service={service} />
-        </Section>
-
-        {service.offices.length > 0 && (
+        <div className="min-w-0 space-y-12 max-lg:mt-8">
           <Section
-            id="wait"
-            title="Wait times"
-            icon={Timer}
-            description="Reported by visitors over the last 30 days. Times vary by day and hour."
-            className="print:hidden"
+            id="requirements"
+            title="Requirements"
+            icon={ListChecks}
+            description="Tick off what you already have. Bring everything on this list."
           >
-            <WaitTimes
+            <ChecklistProgress
               slug={service.slug}
-              offices={service.offices.map(({ id, name }) => ({ id, name }))}
+              variants={variants}
+              items={service.requirements.map(({ id, appliesTo, conditional }) => ({
+                id,
+                appliesTo,
+                conditional,
+              }))}
             />
-          </Section>
-        )}
-
-        {service.tips && service.tips.length > 0 && (
-          <Section
-            id="tips"
-            title="Good to know"
-            icon={Lightbulb}
-            className="defer-render print:hidden"
-          >
-            <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              {service.tips.map((tip) => (
-                <li key={tip}>{tip}</li>
+            <ul className="divide-y rounded-lg border bg-card">
+              {service.requirements.map((req) => (
+                <li
+                  key={req.id}
+                  {...appliesAttr(req)}
+                  className="checklist-row flex gap-3 p-4 transition-colors has-checked:bg-muted/50 print:break-inside-avoid"
+                >
+                  <CheckItem slug={service.slug} id={req.id} label={req.name} />
+                  <RequirementRow req={req} />
+                </li>
               ))}
             </ul>
+            <p className="hidden text-xs print:block">
+              Printed from Papeles, an independent guide.
+              {officialUrl && <> Always confirm on the official site: {officialUrl}</>}
+            </p>
           </Section>
-        )}
 
-        <Section
-          id="sources"
-          title="Sources"
-          icon={Link2}
-          description="Where the information on this page comes from."
-          className="defer-render print:hidden"
-        >
-          <SourcesList service={service} />
-        </Section>
+          <Section
+            id="steps"
+            title="Step by step"
+            icon={Footprints}
+            className="defer-render print:hidden"
+          >
+            <StepsList steps={service.steps} />
+          </Section>
+
+          <Section
+            id="fees"
+            title="Fees"
+            icon={CircleDollarSign}
+            className="defer-render print:hidden"
+          >
+            <FeesList fees={service.fees} payment={service.payment} />
+          </Section>
+
+          <Section
+            id="processing"
+            title="Processing time"
+            icon={Clock}
+            className="defer-render print:hidden"
+          >
+            <ProcessingList items={service.processingTimes} />
+          </Section>
+
+          <Section
+            id="where"
+            title="Where to go"
+            icon={MapPin}
+            className="defer-render print:hidden"
+          >
+            <WhereToGo service={service} />
+          </Section>
+
+          {service.offices.length > 0 && (
+            <Section
+              id="wait"
+              title="Wait times"
+              icon={Timer}
+              description="Reported by visitors over the last 30 days. Times vary by day and hour."
+              className="print:hidden"
+            >
+              <WaitTimes
+                slug={service.slug}
+                offices={service.offices.map(({ id, name }) => ({ id, name }))}
+              />
+            </Section>
+          )}
+
+          {service.tips && service.tips.length > 0 && (
+            <Section
+              id="tips"
+              title="Good to know"
+              icon={Lightbulb}
+              className="defer-render print:hidden"
+            >
+              <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+                {service.tips.map((tip) => (
+                  <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            </Section>
+          )}
+
+          <Section
+            id="sources"
+            title="Sources"
+            icon={Link2}
+            description="Where the information on this page comes from."
+            className="defer-render print:hidden"
+          >
+            <SourcesList service={service} />
+          </Section>
+        </div>
+
+        <aside className="hidden xl:sticky xl:top-20 xl:block xl:self-start print:hidden">
+          <AtAGlance service={service} />
+        </aside>
       </div>
     </div>
   );

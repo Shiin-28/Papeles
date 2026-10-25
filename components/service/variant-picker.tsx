@@ -12,11 +12,11 @@ export function VariantPicker({ slug, variants }: { slug: string; variants: Vari
   return (
     <fieldset className="min-w-0 print:hidden">
       <legend className="mb-2 text-sm font-medium">Which applies to you?</legend>
-      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 lg:flex-col lg:pb-0">
         {variants.map((v) => (
           <label
             key={v.id}
-            className="relative shrink-0 cursor-pointer rounded-full border bg-card px-3.5 py-2 text-sm font-medium transition-colors hover:bg-accent has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:ring-4 has-focus-visible:ring-ring/30"
+            className="relative shrink-0 cursor-pointer rounded-full border bg-card px-3.5 py-2 text-sm font-medium lg:rounded-md transition-colors hover:bg-accent has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:ring-4 has-focus-visible:ring-ring/30"
           >
             <input
               type="radio"

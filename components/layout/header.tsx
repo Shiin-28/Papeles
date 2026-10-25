@@ -5,12 +5,20 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-card print:hidden">
-      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 lg:px-8">
+        <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight">
           <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <FileCheck2 className="size-4.5" aria-hidden />
           </span>
-          <span className="text-lg">Papeles</span>
+          <span className="flex flex-col leading-none">
+            <span className="text-lg">Papeles</span>
+            {/* Small nod to the Philippine flag: blue, red, yellow. */}
+            <span className="mt-1 flex h-[3px] w-full overflow-hidden rounded-full" aria-hidden>
+              <span className="flex-1 bg-[#0038a8]" />
+              <span className="flex-1 bg-[#ce1126]" />
+              <span className="flex-1 bg-[#fcd116]" />
+            </span>
+          </span>
         </Link>
         <nav className="flex items-center gap-1 text-sm font-medium">
           <Link

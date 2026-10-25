@@ -22,7 +22,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={cn("scroll-mt-32 space-y-4", className)}
+      className={cn("scroll-mt-32 space-y-4 lg:scroll-mt-20", className)}
     >
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="space-y-1">
