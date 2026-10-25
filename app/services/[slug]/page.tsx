@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import {
   CircleDollarSign,
@@ -30,7 +29,6 @@ import { ChecklistProgress } from "@/components/checklist/checklist-progress";
 import { WaitTimes } from "@/components/reports/wait-times";
 import { ReportOutdated } from "@/components/reports/report-outdated";
 import { reportOptions } from "@/lib/verification";
-import { GuideSkeleton } from "@/components/service/guide-skeleton";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -58,19 +56,15 @@ const SECTIONS = [
 ];
 
 /**
- * `params` is URL data, so it's read inside <Suspense>. Direct visits still get fully
- * prerendered HTML (every slug is in generateStaticParams); client navigations show the
- * skeleton instantly while the guide streams in. Unknown slugs get a 404 from proxy.ts.
+ * Deliberately not "instant": `params` is awaited at the top so every guide is prerendered as
+ * plain, complete HTML. Wrapping it in <Suspense> instead would ship the content hidden behind
+ * a skeleton and reveal it with JavaScript on every direct visit, which is worse for slow phones,
+ * shared links, and search engines. Client navigations wait for the (static) guide to load.
+ * Unknown slugs get a real 404 from proxy.ts.
  */
-export default function ServicePage({ params }: PageProps<"/services/[slug]">) {
-  return (
-    <Suspense fallback={<GuideSkeleton />}>
-      <ServiceGuide params={params} />
-    </Suspense>
-  );
-}
+export const instant = false;
 
-async function ServiceGuide({ params }: { params: PageProps<"/services/[slug]">["params"] }) {
+export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const service = getService((await params).slug);
   if (!service) notFound();
   // A single variant needs no picker and no filtering.

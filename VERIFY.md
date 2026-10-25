@@ -15,6 +15,12 @@ When you confirm a value, set its `sourceUrl` to the page you checked and `lastV
 | NBI clearance | [How to apply](https://nbi.gov.ph/how-to-apply-nbi-clearance/), [Citizen's Charter](https://nbi.gov.ph/citizens-charter/nbi-clearance-application/) | Verified. **Fee conflict** (see below). |
 | DFA passport | Blocked (dfa.gov.ph, consular.dfa.gov.ph, passport.gov.ph return 403 to automated requests) | **Nothing verified.** |
 | LTO driver's license | Blocked (lto.gov.ph returns 403) | **Nothing verified.** |
+| MySSS Card (SSS, replaces UMID) | [MySSS Card page](https://www.sss.gov.ph/mysss-card/), [SSS Citizen's Charter 2026](https://www.sss.gov.ph/wp-content/uploads/2026/07/2026-SSS-Citizens-Charter-1st-Edition-External-Services.pdf) | Verified. Only the bank's card fee is TODO (it varies by bank). |
+| PRC ID renewal | [Renewal page](https://www.prc.gov.ph/renewal-professional-id-card), [Citizen's Charter 2025](https://www.prc.gov.ph/sites/default/files/PRC%20Citizens%20Charter%202025%201st%20Edition_03312025_R.pdf), [2026 fee tables](https://www.prc.gov.ph/sites/default/files/ASSESSMENT%20OF%20ANNUAL%20REGISTRATION%20FEESARF%20FOR%20CY%202026-2-3.pdf) | Verified. Payment channels, delivery fee, and PRC office list are TODO. |
+| Postal ID | PHLPost press releases on [Circular 25-48](https://phlpost.gov.ph/cpt-press-releases/phlpost-simplifies-postal-id-application-for-all/), [fees](https://phlpost.gov.ph/cpt-press-releases/batangas-mega-job-fair-applicants-get-their-postal-id/), [process](https://phlpost.gov.ph/cpt-press-releases/phlpost-announces-the-resumption-on-the-issuance-of-postal-id-as-functional-card/); the application form | Verified. Payment methods, processing time, and the capturing-site list are TODO. |
+| Voter's Certification (COMELEC) | [2021 notice](https://comelec.gov.ph/?r=References/Announcements/08May2021IssuanceOfVoterCert), [Voter ID page](https://comelec.gov.ph/?r=VoterRegistration/WhatisVoterRegistration/VoterIDIssuance), [Voter ID FAQ](https://comelec.gov.ph/?r=VoterRegistration/WhatisVoterRegistration/VoterIDIssuance/VoterIDFaqs), [Citizen's Charter](https://www.comelec.gov.ph/php-tpls-attachments/AboutCOMELEC/Citizens_Charter_.pdf) | Verified, but the **sources are old** (2010 to 2021). Re-check fee, appointment process, office hours, and release time. |
+| National ID (PhilSys) | philsys.gov.ph was under maintenance; psa.gov.ph blocks automated access | **Nothing verified.** Requirement names come from search excerpts of philsys.gov.ph. |
+| GSIS e-Card / Digital ID | gsis.gov.ph rejects automated access | **No guide yet.** No usable official source was found. |
 
 ## Leads to confirm
 
@@ -43,6 +49,15 @@ Open the page yourself before you copy any of them into the data.
 - The East Avenue outlet address and hours are TODO. The official directory is <https://psa.gov.ph/directory/census-serbilis-center-metro-manila>.
 - Pick-up at a PSA outlet (₱155) appears in the Serbilis text, but the site config currently hides that option (`ShowPickUpOption: false`), so it was left out.
 - Foreign delivery prices conflict (USD 6.00 vs USD 20.30 per copy), so they were left out.
+
+### National ID (`data/services/national-id.ts`)
+- Search excerpts of [philsys.gov.ph/supporting-documents](https://philsys.gov.ph/supporting-documents/) list primary documents as: PSA birth certificate + one government ID with photo and signature, or a Philippine passport, or UMID, or driver's license. Secondary documents must show photo, signature/thumbmark, full name, permanent address, and birth date.
+- Registration is described as online pre-registration → validation and biometrics at a center → PhilID delivery.
+- Still needed: fee (if any), secondary document list, processing time, the online registration URL, and registration center info.
+
+### Voter's Certification
+- The fee went from ₱100 (2016 FAQ) to ₱75 (2021 notice). Confirm it's still ₱75, and whether the main office still requires an appointment.
+- The office hours and address are from May 2021.
 
 ### Offices that aren't verified at all
 These were seeded so wait-time reports have somewhere to point. Their names come from general knowledge, not an official page: DFA ASEANA, PSA East Avenue, LTO Central Office East Avenue. Confirm each one, or remove it.

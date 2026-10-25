@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { STALE_AFTER_DAYS } from "@/lib/dates";
 
 export const metadata: Metadata = {
@@ -7,20 +9,38 @@ export const metadata: Metadata = {
 };
 
 /** General reference only: not tied to any one agency's accepted-ID rules. */
-const COMMON_IDS = [
+const COMMON_IDS: { name: string; issuer: string; guide?: string }[] = [
   {
     name: "Philippine National ID (PhilSys ID, ePhilID, Digital National ID)",
     issuer: "Philippine Statistics Authority (PSA)",
+    guide: "national-id",
   },
-  { name: "Philippine Passport", issuer: "Department of Foreign Affairs (DFA)" },
-  { name: "Driver's License", issuer: "Land Transportation Office (LTO)" },
-  { name: "PRC ID (professional license)", issuer: "Professional Regulation Commission (PRC)" },
-  { name: "UMID / SSS card", issuer: "Social Security System (SSS)" },
+  {
+    name: "Philippine Passport",
+    issuer: "Department of Foreign Affairs (DFA)",
+    guide: "dfa-passport",
+  },
+  {
+    name: "Driver's License",
+    issuer: "Land Transportation Office (LTO)",
+    guide: "lto-drivers-license",
+  },
+  {
+    name: "PRC ID (professional license)",
+    issuer: "Professional Regulation Commission (PRC)",
+    guide: "prc-id-renewal",
+  },
+  {
+    name: "UMID / SSS card (now the MySSS Card)",
+    issuer: "Social Security System (SSS)",
+    guide: "sss-mysss-card",
+  },
   { name: "GSIS e-Card / GSIS Digital ID", issuer: "Government Service Insurance System (GSIS)" },
-  { name: "Postal ID", issuer: "Philippine Postal Corporation (PHLPost)" },
+  { name: "Postal ID", issuer: "Philippine Postal Corporation (PHLPost)", guide: "postal-id" },
   {
     name: "Voter's ID or Voter's Certification",
     issuer: "Commission on Elections (COMELEC)",
+    guide: "voters-certification",
   },
 ];
 
@@ -71,9 +91,22 @@ export default function AboutPage() {
         </p>
         <ul className="divide-y rounded-2xl border bg-card text-sm">
           {COMMON_IDS.map((id) => (
-            <li key={id.name} className="flex flex-wrap justify-between gap-x-4 gap-y-0.5 p-3">
-              <span className="font-medium">{id.name}</span>
-              <span className="text-muted-foreground">{id.issuer}</span>
+            <li key={id.name} className="space-y-1 p-3">
+              <div className="flex flex-wrap justify-between gap-x-4 gap-y-0.5">
+                <span className="font-medium">{id.name}</span>
+                <span className="text-muted-foreground">{id.issuer}</span>
+              </div>
+              {id.guide ? (
+                <Link
+                  href={`/services/${id.guide}`}
+                  className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                >
+                  How to get it
+                  <ArrowRight className="size-3.5" aria-hidden />
+                </Link>
+              ) : (
+                <p className="text-xs text-muted-foreground">No guide yet.</p>
+              )}
             </li>
           ))}
         </ul>

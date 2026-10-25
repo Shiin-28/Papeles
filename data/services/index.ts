@@ -4,6 +4,11 @@ import { dfaPassport } from "./dfa-passport";
 import { ltoDriversLicense } from "./lto-drivers-license";
 import { nbiClearance } from "./nbi-clearance";
 import { psaBirthCertificate } from "./psa-birth-certificate";
+import { nationalId } from "./national-id";
+import { sssMysssCard } from "./sss-mysss-card";
+import { prcIdRenewal } from "./prc-id-renewal";
+import { postalId } from "./postal-id";
+import { votersCertification } from "./voters-certification";
 
 /** Add new service files here. Order is the display order. */
 export const services: Service[] = [
@@ -12,6 +17,11 @@ export const services: Service[] = [
   psaBirthCertificate,
   ltoDriversLicense,
   birTin,
+  nationalId,
+  postalId,
+  sssMysssCard,
+  prcIdRenewal,
+  votersCertification,
 ];
 
 assertUniqueIds(services);
