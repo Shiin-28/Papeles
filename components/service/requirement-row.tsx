@@ -33,7 +33,13 @@ export function RequirementRow({ req }: { req: Requirement }) {
       {req.acceptableIds !== undefined &&
         (isTodo(req.acceptableIds) ? (
           <p className="text-sm text-muted-foreground">
-            Accepted IDs: <TodoValue />
+            Accepted IDs: <TodoValue />{" "}
+            <Link
+              href="/about#common-ids"
+              className="text-primary underline-offset-4 hover:underline print:hidden"
+            >
+              See common government IDs
+            </Link>
           </p>
         ) : (
           <details className="group text-sm">

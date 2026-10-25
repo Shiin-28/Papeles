@@ -6,6 +6,24 @@ export const metadata: Metadata = {
   description: "How Papeles collects and verifies government requirements.",
 };
 
+/** General reference only: not tied to any one agency's accepted-ID rules. */
+const COMMON_IDS = [
+  {
+    name: "Philippine National ID (PhilSys ID, ePhilID, Digital National ID)",
+    issuer: "Philippine Statistics Authority (PSA)",
+  },
+  { name: "Philippine Passport", issuer: "Department of Foreign Affairs (DFA)" },
+  { name: "Driver's License", issuer: "Land Transportation Office (LTO)" },
+  { name: "PRC ID (professional license)", issuer: "Professional Regulation Commission (PRC)" },
+  { name: "UMID / SSS card", issuer: "Social Security System (SSS)" },
+  { name: "GSIS e-Card / GSIS Digital ID", issuer: "Government Service Insurance System (GSIS)" },
+  { name: "Postal ID", issuer: "Philippine Postal Corporation (PHLPost)" },
+  {
+    name: "Voter's ID or Voter's Certification",
+    issuer: "Commission on Elections (COMELEC)",
+  },
+];
+
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-10">
@@ -42,6 +60,27 @@ export default function AboutPage() {
           </li>
           <li>We would rather leave something blank than guess.</li>
         </ul>
+      </section>
+
+      <section id="common-ids" className="scroll-mt-20 space-y-3">
+        <h2 className="text-xl font-semibold">Common government-issued IDs</h2>
+        <p className="text-muted-foreground">
+          These are widely used primary IDs in the Philippines. This is general information, not any
+          agency&apos;s official list. Each agency decides which IDs it accepts, so always check the
+          accepted-ID list in the guide or on the agency&apos;s official website.
+        </p>
+        <ul className="divide-y rounded-2xl border bg-card text-sm">
+          {COMMON_IDS.map((id) => (
+            <li key={id.name} className="flex flex-wrap justify-between gap-x-4 gap-y-0.5 p-3">
+              <span className="font-medium">{id.name}</span>
+              <span className="text-muted-foreground">{id.issuer}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-sm text-muted-foreground">
+          A COMELEC Voter&apos;s Certification is a certificate rather than an ID card. Some
+          agencies accept it and others don&apos;t.
+        </p>
       </section>
 
       <section className="space-y-3">
