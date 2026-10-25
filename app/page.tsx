@@ -1,6 +1,6 @@
 import { BadgeCheck, ListChecks, MapPin, Search } from "lucide-react";
 import { getSearchEntries, services } from "@/data/services";
-import { StickySearch } from "@/components/search/sticky-search";
+import { SearchBar } from "@/components/search/search-bar";
 import { ServiceList } from "@/components/service/service-list";
 
 const HOW_IT_WORKS = [
@@ -24,8 +24,8 @@ const HOW_IT_WORKS = [
 export default function Home() {
   return (
     <>
-      <section className="bg-card">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pt-10 pb-6 sm:pt-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:px-8 lg:pt-16">
+      <section className="border-b bg-card">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:px-8 lg:py-16">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               What do you need to get done?
@@ -34,6 +34,9 @@ export default function Home() {
               Step-by-step guides to Philippine government IDs, clearances, and certificates: what
               to bring, how much it costs, and where to go.
             </p>
+            <div className="mt-6 max-w-2xl" data-primary-search>
+              <SearchBar entries={getSearchEntries()} />
+            </div>
             <p className="mt-4 flex items-center gap-1.5 text-sm text-muted-foreground">
               <BadgeCheck className="size-4 shrink-0 text-success" aria-hidden />
               Checked against official government sources. Each guide shows when.
@@ -57,9 +60,6 @@ export default function Home() {
           </ol>
         </div>
       </section>
-
-      {/* Stays in the page and sticks to the top as you scroll (compact once stuck). */}
-      <StickySearch entries={getSearchEntries()} />
 
       <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8">
         <ServiceList services={services} />
