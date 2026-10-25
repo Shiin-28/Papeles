@@ -31,23 +31,17 @@ export default function Home() {
         <p className="mb-4 inline-flex animate-fade-up rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
           Philippine government requirements, step by step
         </p>
-        <h1
-          className="max-w-2xl animate-fade-up text-4xl font-bold tracking-tight text-balance sm:text-5xl"
-          style={{ animationDelay: "50ms" }}
-        >
+        <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
           Know exactly what to bring.
         </h1>
-        <p
-          className="mt-4 max-w-xl animate-fade-up text-base text-pretty text-muted-foreground sm:text-lg"
-          style={{ animationDelay: "100ms" }}
-        >
+        <p className="mt-4 max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
           Requirements, fees, steps, and wait times for government documents, so you get it done in
           one trip.
         </p>
-        <div className="mt-8 w-full max-w-2xl animate-fade-up" style={{ animationDelay: "150ms" }}>
+        <div className="mt-8 w-full max-w-2xl">
           <SearchBar entries={entries} />
         </div>
-        <div className="mt-5 animate-fade-up" style={{ animationDelay: "200ms" }}>
+        <div className="mt-5 animate-fade-up" style={{ animationDelay: "100ms" }}>
           <PopularShortcuts entries={entries} />
         </div>
       </section>

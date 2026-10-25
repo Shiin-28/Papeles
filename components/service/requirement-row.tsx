@@ -6,8 +6,11 @@ import { formatCopy } from "@/lib/format";
 
 /** Content of one requirement. The checklist adds the checkbox around it. */
 export function RequirementRow({ req }: { req: Requirement }) {
+  // An unverified item already shows a "Not yet verified" chip, so skip its TODO copy line.
   const copy =
-    req.copy === undefined ? null : isTodo(req.copy) ? (
+    req.copy === undefined || (isTodo(req.copy) && req.lastVerified === null) ? null : isTodo(
+        req.copy,
+      ) ? (
       <TodoValue />
     ) : (
       formatCopy(req.copy, isTodo(req.copies) ? undefined : req.copies)

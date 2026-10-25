@@ -147,3 +147,42 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Checklist: dim a requirement's title once it's ticked (pure CSS). */
+.checklist-row:has(input:checked) > div > p:first-child {
+  color: var(--muted-foreground);
+  text-decoration: line-through;
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  /* Always print in light colors, even when the screen is in dark mode. */
+  :root,
+  .dark {
+    color-scheme: light;
+    --background: #fff;
+    --foreground: #000;
+    --card: #fff;
+    --card-foreground: #000;
+    --muted: #f3f4f6;
+    --muted-foreground: #4b5563;
+    --secondary: #f3f4f6;
+    --secondary-foreground: #111827;
+    --border: #d1d5db;
+    --primary: #1d3fa8;
+    --primary-foreground: #fff;
+    --warning: #fff8db;
+    --warning-foreground: #5c4400;
+    --warning-border: #e5c95a;
+  }
+  .checklist-row input {
+    accent-color: black;
+  }
+  html,
+  body {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+}
