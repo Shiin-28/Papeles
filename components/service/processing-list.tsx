@@ -1,5 +1,6 @@
 import { isTodo, type ProcessingTime } from "@/data/schema";
 import { ItemMeta, TodoValue } from "@/components/service/item-meta";
+import { reportKey } from "@/lib/verification";
 
 export function ProcessingList({ items }: { items: ProcessingTime[] }) {
   return (
@@ -11,7 +12,7 @@ export function ProcessingList({ items }: { items: ProcessingTime[] }) {
             <p className="font-semibold">{isTodo(p.duration) ? <TodoValue /> : p.duration}</p>
           </div>
           {p.notes && <p className="text-sm text-muted-foreground">{p.notes}</p>}
-          <ItemMeta item={p} />
+          <ItemMeta item={p} report={reportKey("processingTime", p.id)} />
         </li>
       ))}
     </ul>

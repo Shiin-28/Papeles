@@ -128,6 +128,7 @@ export interface Service extends Verifiable {
 /** Item kinds a user can flag as outdated. */
 export const FLAG_ITEM_TYPES = [
   "service",
+  "online",
   "requirement",
   "step",
   "fee",

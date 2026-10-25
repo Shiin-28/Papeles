@@ -8,6 +8,7 @@ import {
   Link2,
   ListChecks,
   MapPin,
+  Timer,
 } from "lucide-react";
 import { getService, services } from "@/data/services";
 import { isTodo } from "@/data/schema";
@@ -25,6 +26,9 @@ import { SourcesList } from "@/components/service/sources-list";
 import { ShareButton } from "@/components/service/share-button";
 import { CheckItem } from "@/components/checklist/check-item";
 import { ChecklistProgress } from "@/components/checklist/checklist-progress";
+import { WaitTimes } from "@/components/reports/wait-times";
+import { ReportOutdated } from "@/components/reports/report-outdated";
+import { reportOptions } from "@/lib/verification";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -47,6 +51,7 @@ const SECTIONS = [
   { id: "fees", label: "Fees" },
   { id: "processing", label: "Processing time" },
   { id: "where", label: "Where to go" },
+  { id: "wait", label: "Wait times" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -60,7 +65,15 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   return (
     <div id={GUIDE_ID} className="mx-auto max-w-3xl px-4 pt-6 pb-16 print:p-0">
       <VariantStyles service={service} />
-      <ServiceHeader service={service} actions={<ShareButton title={service.name} />} />
+      <ServiceHeader
+        service={service}
+        actions={
+          <>
+            <ShareButton title={service.name} />
+            <ReportOutdated slug={service.slug} options={reportOptions(service)} />
+          </>
+        }
+      />
 
       {variants && (
         <div className="mt-6">
@@ -136,6 +149,21 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <Section id="where" title="Where to go" icon={MapPin} className="defer-render print:hidden">
           <WhereToGo service={service} />
         </Section>
+
+        {service.offices.length > 0 && (
+          <Section
+            id="wait"
+            title="Wait times"
+            icon={Timer}
+            description="Reported by visitors over the last 30 days. Times vary by day and hour."
+            className="print:hidden"
+          >
+            <WaitTimes
+              slug={service.slug}
+              offices={service.offices.map(({ id, name }) => ({ id, name }))}
+            />
+          </Section>
+        )}
 
         {service.tips && service.tips.length > 0 && (
           <Section

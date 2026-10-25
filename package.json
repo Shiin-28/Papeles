@@ -8,9 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "@prisma/adapter-libsql": "7.10.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.0",
     "fuse.js": "^7.5.0",
@@ -32,6 +38,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
     "prettier": "^3.9.10",
+    "prisma": "7.10.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

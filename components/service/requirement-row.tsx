@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { isTodo, type Requirement } from "@/data/schema";
 import { ItemMeta, TodoValue } from "@/components/service/item-meta";
 import { formatCopy } from "@/lib/format";
+import { reportKey } from "@/lib/verification";
 
 /** Content of one requirement. The checklist adds the checkbox around it. */
 export function RequirementRow({ req }: { req: Requirement }) {
@@ -58,7 +59,11 @@ export function RequirementRow({ req }: { req: Requirement }) {
           <ArrowRight className="size-3.5" aria-hidden />
         </Link>
       )}
-      <ItemMeta item={req} className="pt-0.5 print:hidden" />
+      <ItemMeta
+        item={req}
+        report={reportKey("requirement", req.id)}
+        className="pt-0.5 print:hidden"
+      />
     </div>
   );
 }

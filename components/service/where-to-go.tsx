@@ -1,6 +1,7 @@
 import { Building2, ExternalLink, Laptop, MapPin } from "lucide-react";
 import { isTodo, type OnlineAvailability, type Service } from "@/data/schema";
 import { ItemMeta, TodoValue } from "@/components/service/item-meta";
+import { reportKey } from "@/lib/verification";
 
 const ONLINE_LABEL: Record<OnlineAvailability, string> = {
   full: "Can be done fully online",
@@ -26,7 +27,7 @@ export function WhereToGo({ service }: { service: Service }) {
             )}
           </p>
           {online.notes && <p className="text-sm text-muted-foreground">{online.notes}</p>}
-          <ItemMeta item={online} />
+          <ItemMeta item={online} report={reportKey("online")} />
         </div>
       </div>
 
@@ -64,7 +65,7 @@ export function WhereToGo({ service }: { service: Service }) {
                   <ExternalLink className="size-3.5" aria-hidden />
                 </a>
               )}
-              <ItemMeta item={o} />
+              <ItemMeta item={o} report={reportKey("office", o.id)} />
             </li>
           ))}
         </ul>

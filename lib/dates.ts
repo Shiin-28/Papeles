@@ -43,3 +43,15 @@ export function formatDaysAgo(days: number): string {
 export function isStale(date: ISODate | null, now: Date): boolean {
   return date === null || daysSince(date, now) > STALE_AFTER_DAYS;
 }
+
+/** Today's date in the Philippines (UTC+8), as "YYYY-MM-DD". */
+export function manilaToday(now: Date): ISODate {
+  return new Date(now.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10) as ISODate;
+}
+
+/** Adds (or subtracts) whole days to a "YYYY-MM-DD" date. */
+export function addDays(date: ISODate, days: number): ISODate {
+  return new Date(parseISODate(date).getTime() + days * DAY_MS)
+    .toISOString()
+    .slice(0, 10) as ISODate;
+}

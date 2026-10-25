@@ -2,6 +2,7 @@ import { ExternalLink, Globe } from "lucide-react";
 import { isTodo, type Step } from "@/data/schema";
 import { ItemMeta, TodoValue } from "@/components/service/item-meta";
 import { appliesAttr } from "@/components/service/variants";
+import { reportKey } from "@/lib/verification";
 
 /** Numbers come from a CSS counter, so steps hidden for other variants leave no gaps. */
 export function StepsList({ steps }: { steps: Step[] }) {
@@ -37,7 +38,7 @@ export function StepsList({ steps }: { steps: Step[] }) {
                 <ExternalLink className="size-3.5" aria-hidden />
               </a>
             )}
-            <ItemMeta item={step} />
+            <ItemMeta item={step} report={reportKey("step", step.id)} />
           </div>
         </li>
       ))}

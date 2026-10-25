@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Papeles
 
-## Getting Started
+A guide to Philippine government requirements. Search for a document or service (passport, NBI clearance, PSA birth certificate, driver's license, TIN) and get:
 
-First, run the development server:
+- a requirements checklist you can tick off and print
+- the steps in order
+- fees and payment methods
+- where to go
+- processing times
+- crowd-reported wait times per branch
+
+Each item shows when it was last checked against the official source.
+
+Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui, Fuse.js, Prisma 7 and SQLite.
+
+## Getting started
+
+Requires Node.js 22.18+ or 24.11+.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+corepack pnpm install          # also generates the Prisma client
+cp .env.example .env           # then set IP_HASH_SALT to a random string
+corepack pnpm db:migrate       # creates prisma/dev.db
+corepack pnpm dev              # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> On this machine the global `npm` is broken, so use `corepack pnpm …`, which ships with Node. Reinstalling Node fixes npm.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Dev server |
+| `pnpm build` / `pnpm start` | Production build / server |
+| `pnpm lint`, `pnpm typecheck`, `pnpm format` | ESLint, TypeScript, Prettier |
+| `pnpm db:migrate` | Apply schema changes in development |
+| `pnpm db:deploy` | Apply migrations in production |
+| `pnpm db:studio` | Browse wait-time reports and outdated-info flags |
 
-## Learn More
+## Editing service data
 
-To learn more about Next.js, take a look at the following resources:
+Each service is one typed file in [`data/services/`](data/services/). The schema is in [`data/schema.ts`](data/schema.ts).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Never guess.** If a value isn't confirmed on an official page, use `TODO` (the string `"TODO: verify"`). The site shows it as **Not yet verified**.
+- Every service, requirement, step, fee, processing time, payment block and office has `lastVerified` (`"YYYY-MM-DD"`, or `null` if never checked) and `sourceUrl` (an official `.gov.ph` page or the agency's own portal).
+- When you confirm something, update **both** fields. Items older than 90 days get a yellow "May be outdated" warning automatically.
+- `id`s are stored in visitors' checklists and in the database, so don't rename them casually.
+- `variants` (e.g. "New" vs "Renewal") plus `appliesTo` on items control what shows for each choice.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To add a service, create a file next to the others and add it to [`data/services/index.ts`](data/services/index.ts). The build checks for duplicate ids and unknown variants.
 
-## Deploy on Vercel
+[`VERIFY.md`](VERIFY.md) lists what still needs to be checked against official sources.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Reports and moderation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `POST /api/wait-times`: `{ serviceSlug, officeId, waitMinutes, visitDate }`
+- `GET /api/wait-times?service=<slug>`: per-branch average and median for the last 30 days. An average only appears after 2 reports.
+- `POST /api/flags`: `{ serviceSlug, itemType, itemId?, message? }`
+
+Inputs are validated with Zod against the real service data. Spam protection includes:
+- a honeypot field
+- per-IP rate limits: 5 wait reports and 10 flags per hour, counted in the database
+- one wait report per branch per day per IP
+
+Only a salted hash of the IP (`IP_HASH_SALT`) is stored. Behind a proxy or CDN, make sure it sets `X-Forwarded-For`.
+
+Outdated-info flags land in the `OutdatedFlag` table with `status = "open"`. Review them with `pnpm db:studio`.
+
+## Performance
+
+The site is built for low-end phones and slow connections:
+- Pages are static HTML.
+- Only small interactive "islands" ship JavaScript: search, checklist boxes, share, report dialog and wait times.
+- Animations are CSS-only.
+- Fuse.js loads on first use of the search box.
+- Wait times only load when that section scrolls into view.
+- Variant filtering is pure CSS (`:has()`).
+
+A guide page loads about 155 KB of gzipped JS, of which roughly 138 KB is the React/Next.js baseline. Avoid adding heavy client libraries.
+
+## Moving to Postgres later
+
+1. In `prisma/schema.prisma`, change `provider = "sqlite"` to `"postgresql"`.
+2. In `lib/db.ts`, swap `@prisma/adapter-libsql` for `@prisma/adapter-pg`.
+3. Point `DATABASE_URL` at the new database and run `pnpm db:migrate`.
+
+Alternatively, the libSQL adapter already works with a hosted Turso database.

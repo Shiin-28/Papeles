@@ -1,0 +1,43 @@
+// Papeles database: crowd-reported wait times and outdated-info flags.
+// Service content itself lives in /data/services, not here.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model WaitReport {
+  id          String   @id @default(cuid())
+  serviceSlug String
+  /// Matches an Office.id in the service's data file.
+  officeId    String
+  waitMinutes Int
+  /// Calendar day of the visit (stored as midnight UTC).
+  visitDate   DateTime
+  /// Salted SHA-256 of the submitter's IP, for rate limiting only.
+  ipHash      String
+  createdAt   DateTime @default(now())
+
+  @@index([serviceSlug, visitDate])
+  @@index([ipHash, createdAt])
+}
+
+model OutdatedFlag {
+  id          String   @id @default(cuid())
+  serviceSlug String
+  /// service | requirement | step | fee | processingTime | payment | office
+  itemType    String
+  itemId      String?
+  message     String?
+  ipHash      String
+  /// open | resolved | dismissed
+  status      String   @default("open")
+  createdAt   DateTime @default(now())
+
+  @@index([serviceSlug, status])
+  @@index([ipHash, createdAt])
+}

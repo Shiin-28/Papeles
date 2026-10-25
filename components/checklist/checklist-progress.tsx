@@ -57,6 +57,10 @@ export function ChecklistProgress({
               <CircleCheck className="size-4" aria-hidden />
               You have everything you need
             </span>
+          ) : required.length === 0 ? (
+            <span className="font-normal text-muted-foreground">
+              Nothing is required from everyone. Tick the items that apply to you.
+            </span>
           ) : (
             <>
               {done} of {required.length} ready
@@ -90,19 +94,21 @@ export function ChecklistProgress({
           </button>
         </div>
       </div>
-      <div
-        className="h-2 overflow-hidden rounded-full bg-muted print:hidden"
-        role="progressbar"
-        aria-label="Checklist progress"
-        aria-valuemin={0}
-        aria-valuemax={required.length}
-        aria-valuenow={done}
-      >
+      {required.length > 0 && (
         <div
-          className="h-full rounded-full bg-success transition-[width] duration-300"
-          style={{ width: `${percent}%` }}
-        />
-      </div>
+          className="h-2 overflow-hidden rounded-full bg-muted print:hidden"
+          role="progressbar"
+          aria-label="Checklist progress"
+          aria-valuemin={0}
+          aria-valuemax={required.length}
+          aria-valuenow={done}
+        >
+          <div
+            className="h-full rounded-full bg-success transition-[width] duration-300"
+            style={{ width: `${percent}%` }}
+          />
+        </div>
+      )}
       <p className="text-xs text-muted-foreground print:hidden">Saved on this device only.</p>
     </div>
   );

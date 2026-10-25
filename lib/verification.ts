@@ -19,6 +19,7 @@ export function collectItems(service: Service): ItemRef[] {
       lastVerified: service.lastVerified,
       sourceUrl: service.sourceUrl,
     },
+    { type: "online", id: null, label: "Online availability", ...meta(service.online) },
     ...service.requirements.map((r) => ({
       type: "requirement" as const,
       id: r.id,
@@ -70,4 +71,28 @@ export function groupSources(service: Service): { url: string; items: string[] }
     map.set(item.sourceUrl, list);
   }
   return [...map].map(([url, items]) => ({ url, items }));
+}
+
+/** Value used by per-item "Report" buttons and the report dialog: "type:id". */
+export function reportKey(type: FlagItemType, id: string | null = null): string {
+  return `${type}:${id ?? ""}`;
+}
+
+const GROUP_LABEL: Record<FlagItemType, string> = {
+  service: "General",
+  online: "General",
+  requirement: "Requirements",
+  step: "Steps",
+  fee: "Fees",
+  payment: "Fees",
+  processingTime: "Processing time",
+  office: "Offices",
+};
+
+export function reportOptions(service: Service) {
+  return collectItems(service).map((i) => ({
+    value: reportKey(i.type, i.id),
+    label: i.label,
+    group: GROUP_LABEL[i.type],
+  }));
 }

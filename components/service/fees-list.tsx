@@ -2,6 +2,7 @@ import { isTodo, type Fee, type Payment } from "@/data/schema";
 import { ItemMeta, TodoValue } from "@/components/service/item-meta";
 import { appliesAttr } from "@/components/service/variants";
 import { formatPeso } from "@/lib/format";
+import { reportKey } from "@/lib/verification";
 
 export function FeesList({ fees, payment }: { fees: Fee[]; payment: Payment }) {
   return (
@@ -12,7 +13,7 @@ export function FeesList({ fees, payment }: { fees: Fee[]; payment: Payment }) {
             <div className="min-w-0 flex-1 space-y-1">
               <p className="font-medium leading-snug">{fee.label}</p>
               {fee.notes && <p className="text-sm text-muted-foreground">{fee.notes}</p>}
-              <ItemMeta item={fee} />
+              <ItemMeta item={fee} report={reportKey("fee", fee.id)} />
             </div>
             <p className="shrink-0 text-right text-lg font-semibold tabular-nums">
               {isTodo(fee.amount) ? <TodoValue /> : formatPeso(fee.amount)}
@@ -37,7 +38,7 @@ export function FeesList({ fees, payment }: { fees: Fee[]; payment: Payment }) {
           )
         )}
         {payment.notes && <p className="text-sm text-muted-foreground">{payment.notes}</p>}
-        <ItemMeta item={payment} />
+        <ItemMeta item={payment} report={reportKey("payment")} />
       </div>
     </div>
   );
