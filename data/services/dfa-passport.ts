@@ -115,7 +115,8 @@ export const dfaPassport = {
     {
       id: "confirmation",
       title: "Print your appointment packet",
-      description: "After paying, you'll receive a confirmation email with your appointment packet.",
+      description:
+        "After paying, you'll receive a confirmation email with your appointment packet.",
       lastVerified: null,
       sourceUrl: TODO,
     },

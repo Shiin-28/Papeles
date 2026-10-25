@@ -1,38 +1,22 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
+/** Follows the system theme until the user picks one. */
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Change theme">
-          {/* Icons swap via CSS so the server and client render the same markup. */}
-          <Sun className="size-5 dark:hidden" />
-          <Moon className="hidden size-5 dark:block" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun /> Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon /> Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor /> System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <button
+      type="button"
+      aria-label="Toggle dark mode"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    >
+      {/* Icons swap via CSS so the server and client render the same markup. */}
+      <Sun className="size-5 dark:hidden" aria-hidden />
+      <Moon className="hidden size-5 dark:block" aria-hidden />
+    </button>
   );
 }

@@ -1,0 +1,43 @@
+import type { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export function Section({
+  id,
+  title,
+  icon: Icon,
+  description,
+  actions,
+  children,
+  className,
+}: {
+  id: string;
+  title: string;
+  icon: LucideIcon;
+  description?: React.ReactNode;
+  actions?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <section
+      id={id}
+      aria-labelledby={`${id}-title`}
+      className={cn("scroll-mt-32 space-y-4", className)}
+    >
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="space-y-1">
+          <h2
+            id={`${id}-title`}
+            className="flex items-center gap-2 text-xl font-semibold tracking-tight"
+          >
+            <Icon className="size-5 text-primary" aria-hidden />
+            {title}
+          </h2>
+          {description && <p className="text-sm text-muted-foreground">{description}</p>}
+        </div>
+        {actions}
+      </div>
+      {children}
+    </section>
+  );
+}

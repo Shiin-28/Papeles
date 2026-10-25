@@ -139,8 +139,7 @@ export const birTin = {
     {
       id: "eo98-orus-apply",
       title: "Create an ORUS account and submit the online form",
-      description:
-        "Fill out the online registration form and upload the required documents.",
+      description: "Fill out the online registration form and upload the required documents.",
       online: true,
       url: ORUS,
       appliesTo: ["eo98-online"],

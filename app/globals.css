@@ -113,3 +113,37 @@
     }
   }
 }
+
+/* Lightweight CSS-only animations (no JS animation library, cheap on low-end devices). */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@utility animate-fade-up {
+  animation: fade-up 0.4s ease-out both;
+}
+@utility animate-pop-in {
+  animation: pop-in 0.15s ease-out both;
+}
+/* Skip layout/paint work for off-screen sections until they scroll near. */
+@utility defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

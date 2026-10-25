@@ -13,7 +13,7 @@ export const nbiClearance = {
     officialUrl: "https://nbi.gov.ph",
   },
   summary:
-    "Apply and pay online, then visit your chosen NBI branch once for photo and fingerprints. If there's no name match (\"HIT\"), you get the clearance the same day.",
+    'Apply and pay online, then visit your chosen NBI branch once for photo and fingerprints. If there\'s no name match ("HIT"), you get the clearance the same day.',
   keywords: [
     "nbi",
     "clearance",
@@ -108,7 +108,7 @@ export const nbiClearance = {
     },
     {
       id: "apply",
-      title: "Click \"Apply for Clearance\" and pick your ID",
+      title: 'Click "Apply for Clearance" and pick your ID',
       description: "A pop-up asks which valid government ID you'll bring to the branch.",
       online: true,
       lastVerified: "2026-10-25",
@@ -165,7 +165,7 @@ export const nbiClearance = {
       id: "e-payment-charge",
       label: "E-payment service charge",
       amount: { min: 25, max: 30 },
-      notes: "\"Usually around\" this amount, depending on the payment channel.",
+      notes: '"Usually around" this amount, depending on the payment channel.',
       appliesTo: ["regular"],
       lastVerified: "2026-10-25",
       sourceUrl: HOW_TO,
@@ -210,7 +210,8 @@ export const nbiClearance = {
       city: "Manila",
       region: "NCR",
       hours: "Monday to Friday, 7:00 AM to 5:00 PM",
-      notes: "Hours are from NBI's Citizen's Charter page, which may be older than the how-to guide.",
+      notes:
+        "Hours are from NBI's Citizen's Charter page, which may be older than the how-to guide.",
       lastVerified: "2026-10-25",
       sourceUrl: CHARTER,
     },
@@ -219,7 +220,6 @@ export const nbiClearance = {
   tips: [
     "Dress for the photo: avoid sandos, tank tops, shorts, and slippers. Smart casual or a collared shirt is recommended.",
     "A HIT is common if you share a name with someone in the database. It only means a manual check, not that you have a record.",
-    "Online renewal: if your last clearance was issued after 2014 and nothing changed, choose \"NBI Clearance Online Renewal\" on the portal home page to skip the branch and get it delivered.",
+    'Online renewal: if your last clearance was issued after 2014 and nothing changed, choose "NBI Clearance Online Renewal" on the portal home page to skip the branch and get it delivered.',
   ],
 } satisfies Service;
-

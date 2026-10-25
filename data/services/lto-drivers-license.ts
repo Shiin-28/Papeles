@@ -129,12 +129,24 @@ export const ltoDriversLicense = {
     },
   ],
   fees: [
-    { id: "application", label: "Application fee", amount: TODO, lastVerified: null, sourceUrl: TODO },
+    {
+      id: "application",
+      label: "Application fee",
+      amount: TODO,
+      lastVerified: null,
+      sourceUrl: TODO,
+    },
     { id: "license", label: "License fee", amount: TODO, lastVerified: null, sourceUrl: TODO },
   ],
   payment: { methods: TODO, lastVerified: null, sourceUrl: TODO },
   processingTimes: [
-    { id: "release", label: "License release", duration: TODO, lastVerified: null, sourceUrl: TODO },
+    {
+      id: "release",
+      label: "License release",
+      duration: TODO,
+      lastVerified: null,
+      sourceUrl: TODO,
+    },
   ],
   offices: [
     {

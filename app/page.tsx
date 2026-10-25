@@ -3,7 +3,6 @@ import { getSearchEntries, services } from "@/data/services";
 import { SearchBar } from "@/components/search/search-bar";
 import { PopularShortcuts } from "@/components/search/popular-shortcuts";
 import { ServiceCard } from "@/components/service/service-card";
-import { FadeIn } from "@/components/fade-in";
 
 const FEATURES = [
   {
@@ -29,28 +28,28 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-4">
       <section className="flex flex-col items-center pt-12 pb-10 text-center sm:pt-20 sm:pb-14">
-        <FadeIn>
-          <p className="mb-4 inline-flex rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-            Philippine government requirements, step by step
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.05}>
-          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-            Know exactly what to bring.
-          </h1>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <p className="mt-4 max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Requirements, fees, steps, and wait times for government documents, so you get it done
-            in one trip.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.15} className="mt-8 w-full max-w-2xl">
+        <p className="mb-4 inline-flex animate-fade-up rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+          Philippine government requirements, step by step
+        </p>
+        <h1
+          className="max-w-2xl animate-fade-up text-4xl font-bold tracking-tight text-balance sm:text-5xl"
+          style={{ animationDelay: "50ms" }}
+        >
+          Know exactly what to bring.
+        </h1>
+        <p
+          className="mt-4 max-w-xl animate-fade-up text-base text-pretty text-muted-foreground sm:text-lg"
+          style={{ animationDelay: "100ms" }}
+        >
+          Requirements, fees, steps, and wait times for government documents, so you get it done in
+          one trip.
+        </p>
+        <div className="mt-8 w-full max-w-2xl animate-fade-up" style={{ animationDelay: "150ms" }}>
           <SearchBar entries={entries} />
-        </FadeIn>
-        <FadeIn delay={0.2} className="mt-5">
+        </div>
+        <div className="mt-5 animate-fade-up" style={{ animationDelay: "200ms" }}>
           <PopularShortcuts entries={entries} />
-        </FadeIn>
+        </div>
       </section>
 
       <section aria-labelledby="all-guides" className="pb-14">
@@ -64,7 +63,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="How Papeles works" className="grid gap-6 border-t py-12 sm:grid-cols-3">
+      <section
+        aria-label="How Papeles works"
+        className="grid defer-render gap-6 border-t py-12 sm:grid-cols-3"
+      >
         {FEATURES.map((f) => (
           <div key={f.title} className="space-y-2">
             <f.icon className="size-6 text-primary" aria-hidden />

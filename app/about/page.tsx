@@ -20,8 +20,8 @@ export default function AboutPage() {
         <p className="font-semibold">Papeles is not a government website.</p>
         <p className="mt-1">
           We aren&apos;t affiliated with DFA, NBI, PSA, LTO, BIR, or any agency. We never ask for
-          payments or personal documents. Always book and pay only through the agency&apos;s official
-          site.
+          payments or personal documents. Always book and pay only through the agency&apos;s
+          official site.
         </p>
       </div>
 
@@ -47,8 +47,8 @@ export default function AboutPage() {
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Help keep it accurate</h2>
         <p className="text-muted-foreground">
-          See something that changed? Use &ldquo;Report outdated info&rdquo; on any guide. Waited
-          at a branch? Share your wait time so others can plan their trip.
+          See something that changed? Use &ldquo;Report outdated info&rdquo; on any guide. Waited at
+          a branch? Share your wait time so others can plan their trip.
         </p>
       </section>
     </div>
