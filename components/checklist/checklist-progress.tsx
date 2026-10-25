@@ -46,7 +46,7 @@ export function ChecklistProgress({
   }
 
   return (
-    <div className="space-y-3 rounded-2xl border bg-card p-4 print:border-0 print:p-0">
+    <div className="space-y-3 rounded-lg border bg-card p-4 print:border-0 print:p-0">
       {variant && (
         <p className="hidden text-sm font-medium print:block">Checklist for: {variant.label}</p>
       )}

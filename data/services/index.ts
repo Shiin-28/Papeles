@@ -39,7 +39,6 @@ export interface SearchEntry {
   agencyName: string;
   summary: string;
   keywords: string[];
-  popular: boolean;
 }
 
 export function getSearchEntries(): SearchEntry[] {
@@ -51,7 +50,6 @@ export function getSearchEntries(): SearchEntry[] {
     agencyName: s.agency.name,
     summary: s.summary,
     keywords: s.keywords,
-    popular: s.popular ?? false,
   }));
 }
 

@@ -4,24 +4,24 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b bg-background print:hidden">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+    <header className="sticky top-0 z-40 border-b bg-card print:hidden">
+      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <FileCheck2 className="size-4.5" />
+          <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <FileCheck2 className="size-4.5" aria-hidden />
           </span>
           <span className="text-lg">Papeles</span>
         </Link>
         <nav className="flex items-center gap-1 text-sm font-medium">
           <Link
             href="/services"
-            className="rounded-md px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
           >
-            Services
+            Guides
           </Link>
           <Link
             href="/about"
-            className="rounded-md px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             About
           </Link>

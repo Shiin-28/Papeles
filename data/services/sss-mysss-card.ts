@@ -8,6 +8,7 @@ const PORTAL = "https://member.sss.gov.ph";
 
 export const sssMysssCard = {
   slug: "sss-mysss-card",
+  category: "ids",
   name: "MySSS Card (SSS ID, replaces UMID)",
   shortName: "MySSS Card",
   agency: {

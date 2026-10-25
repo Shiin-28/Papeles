@@ -1,14 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
-
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -16,29 +10,27 @@ export const metadata: Metadata = {
     template: "%s · Papeles",
   },
   description:
-    "Requirements, steps, fees, offices, and real wait times for Philippine government documents like passports, NBI clearance, PSA certificates, driver's licenses, and TIN.",
+    "Requirements, steps, fees, offices, and real wait times for Philippine government IDs and documents like the National ID, passport, NBI clearance, PSA birth certificate, driver's license, and TIN.",
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fcfcfe" },
-    { media: "(prefers-color-scheme: dark)", color: "#14161f" },
-  ],
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} h-full antialiased`}
+      className="h-full antialiased"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
+        {/* Always starts in light mode; the header toggle switches to dark and remembers it. */}
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Header />

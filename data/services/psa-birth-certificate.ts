@@ -7,6 +7,7 @@ const OUTLETS = "https://psa.gov.ph/directory/census-serbilis-center-metro-manil
 
 export const psaBirthCertificate = {
   slug: "psa-birth-certificate",
+  category: "certificates",
   name: "PSA Birth Certificate",
   shortName: "PSA Birth Certificate",
   agency: {
@@ -27,7 +28,6 @@ export const psaBirthCertificate = {
     "sertipiko ng kapanganakan",
     "civil registry",
   ],
-  popular: true,
   lastVerified: "2026-10-25",
   sourceUrl: SERBILIS,
   appointment: { url: SERBILIS, label: "Request online (PSA Serbilis)" },

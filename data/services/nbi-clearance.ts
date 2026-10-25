@@ -5,6 +5,7 @@ const CHARTER = "https://nbi.gov.ph/citizens-charter/nbi-clearance-application/"
 
 export const nbiClearance = {
   slug: "nbi-clearance",
+  category: "certificates",
   name: "NBI Clearance",
   shortName: "NBI Clearance",
   agency: {
@@ -23,7 +24,6 @@ export const nbiClearance = {
     "first time job seeker",
     "ra 11261",
   ],
-  popular: true,
   lastVerified: "2026-10-25",
   sourceUrl: HOW_TO,
   appointment: { url: "https://clearance.nbi.gov.ph/", label: "Apply online" },

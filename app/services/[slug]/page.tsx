@@ -110,7 +110,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               conditional,
             }))}
           />
-          <ul className="divide-y rounded-2xl border bg-card">
+          <ul className="divide-y rounded-lg border bg-card">
             {service.requirements.map((req) => (
               <li
                 key={req.id}

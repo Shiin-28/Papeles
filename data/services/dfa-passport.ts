@@ -9,6 +9,7 @@ const APPOINTMENT = "https://www.passport.gov.ph";
 
 export const dfaPassport = {
   slug: "dfa-passport",
+  category: "ids",
   name: "Philippine Passport",
   shortName: "Passport",
   agency: {
@@ -28,7 +29,6 @@ export const dfaPassport = {
     "consular",
     "travel",
   ],
-  popular: true,
   lastVerified: null,
   sourceUrl: ADULT_NEW,
   appointment: { url: APPOINTMENT, label: "Book appointment online" },

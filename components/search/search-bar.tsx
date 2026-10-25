@@ -89,7 +89,7 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
     <div className="relative w-full">
       <div
         className={cn(
-          "flex h-14 items-center gap-3 rounded-2xl border bg-card px-4 shadow-sm transition-shadow sm:h-16",
+          "flex h-13 items-center gap-3 rounded-lg border border-input bg-background px-4 sm:h-14",
           "focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/20",
         )}
       >
@@ -141,7 +141,7 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
       </div>
 
       {showPanel && (
-        <div className="animate-pop-in absolute inset-x-0 top-full z-30 mt-2 overflow-hidden rounded-2xl border bg-popover p-1.5 shadow-lg">
+        <div className="animate-pop-in absolute inset-x-0 top-full z-30 mt-2 overflow-hidden rounded-lg border bg-popover p-1.5 shadow-lg">
           {results.length > 0 ? (
             <ul id={listId} role="listbox" aria-label="Matching services">
               {results.map((r, i) => (
@@ -157,7 +157,7 @@ export function SearchBar({ entries, autoFocus }: { entries: SearchEntry[]; auto
                   }}
                   onMouseEnter={() => setActive(i)}
                   className={cn(
-                    "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5",
+                    "flex cursor-pointer items-center gap-3 rounded-md px-3 py-2.5",
                     i === activeIndex && "bg-accent",
                   )}
                 >

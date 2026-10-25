@@ -12,7 +12,7 @@ export function SourcesList({ service }: { service: Service }) {
   return (
     <ul className="space-y-2">
       {sources.map((s) => (
-        <li key={s.url} className="rounded-xl border bg-card p-3 text-sm">
+        <li key={s.url} className="rounded-md border bg-card p-3 text-sm">
           <a
             href={s.url}
             target="_blank"

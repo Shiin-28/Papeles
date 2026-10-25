@@ -10,7 +10,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/services"
-        className="inline-flex h-11 items-center rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+        className="inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
       >
         See all guides
       </Link>

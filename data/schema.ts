@@ -100,6 +100,14 @@ export interface Office extends Verifiable {
 
 export type OnlineAvailability = "full" | "partial" | "none";
 
+/** Groups on the homepage and guide list, in display order. */
+export const CATEGORIES = [
+  { id: "ids", label: "IDs" },
+  { id: "certificates", label: "Clearances & certificates" },
+  { id: "tax", label: "Tax" },
+] as const;
+export type ServiceCategory = (typeof CATEGORIES)[number]["id"];
+
 export interface Service extends Verifiable {
   slug: string;
   name: string;
@@ -107,9 +115,9 @@ export interface Service extends Verifiable {
   shortName: string;
   agency: Agency;
   summary: string;
+  category: ServiceCategory;
   /** Extra search terms: Filipino words, common misspellings, related phrases. */
   keywords: string[];
-  popular?: boolean;
   /** Shown as the "online" button next to "Official website", e.g. booking or online application. */
   appointment?: { url: Maybe<string>; label: string };
   online: Verifiable & { availability: Maybe<OnlineAvailability>; notes?: string };

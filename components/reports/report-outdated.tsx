@@ -85,7 +85,7 @@ export function ReportOutdated({ slug, options }: { slug: string; options: Repor
       <button
         type="button"
         onClick={() => open()}
-        className="inline-flex h-11 items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none"
+        className="inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none"
       >
         <Flag className="size-4" aria-hidden />
         Report outdated info
@@ -94,7 +94,7 @@ export function ReportOutdated({ slug, options }: { slug: string; options: Repor
       <dialog
         ref={dialogRef}
         aria-labelledby="report-title"
-        className="m-auto w-[calc(100%-2rem)] max-w-md animate-pop-in rounded-2xl border bg-popover p-0 text-popover-foreground shadow-xl backdrop:bg-black/50"
+        className="m-auto w-[calc(100%-2rem)] max-w-md animate-pop-in rounded-lg border bg-popover p-0 text-popover-foreground shadow-xl backdrop:bg-black/50"
       >
         <div className="flex items-center justify-between border-b px-5 py-4">
           <h2 id="report-title" className="font-semibold">
@@ -120,7 +120,7 @@ export function ReportOutdated({ slug, options }: { slug: string; options: Repor
             <form method="dialog">
               <button
                 type="submit"
-                className="h-11 w-full rounded-xl border text-sm font-semibold hover:bg-accent"
+                className="h-11 w-full rounded-md border text-sm font-semibold hover:bg-accent"
               >
                 Close
               </button>
@@ -164,7 +164,7 @@ export function ReportOutdated({ slug, options }: { slug: string; options: Repor
                 maxLength={MAX_MESSAGE}
                 rows={3}
                 placeholder="e.g. The fee is now ₱155 on the official site."
-                className="w-full rounded-xl border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/20"
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/20"
               />
               <p className="text-right text-xs text-muted-foreground">
                 {message.length}/{MAX_MESSAGE}

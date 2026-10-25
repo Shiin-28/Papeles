@@ -31,7 +31,7 @@ export function ShareButton({ title }: { title: string }) {
     <button
       type="button"
       onClick={share}
-      className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border bg-card px-4 text-sm font-semibold transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none"
+      className="inline-flex h-11 items-center justify-center gap-2 rounded-md border bg-card px-4 text-sm font-semibold transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none"
     >
       {copied ? (
         <Check className="size-4 text-success" aria-hidden />

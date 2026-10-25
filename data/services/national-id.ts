@@ -7,6 +7,7 @@ const SUPPORTING_DOCS = "https://philsys.gov.ph/supporting-documents/";
 
 export const nationalId = {
   slug: "national-id",
+  category: "ids",
   name: "National ID (PhilSys / PhilID / ePhilID)",
   shortName: "National ID",
   agency: {
@@ -25,7 +26,6 @@ export const nationalId = {
     "psa id",
     "national identification",
   ],
-  popular: true,
   lastVerified: null,
   sourceUrl: REGISTRATION,
   online: { availability: TODO, lastVerified: null, sourceUrl: TODO },

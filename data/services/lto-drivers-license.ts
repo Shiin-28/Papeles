@@ -7,6 +7,7 @@ const LTMS = "https://portal.lto.gov.ph";
 
 export const ltoDriversLicense = {
   slug: "lto-drivers-license",
+  category: "ids",
   name: "Driver's License (New, Non-Professional)",
   shortName: "Driver's License",
   agency: {
@@ -28,7 +29,6 @@ export const ltoDriversLicense = {
     "pdc",
     "driving test",
   ],
-  popular: true,
   lastVerified: null,
   sourceUrl: CHARTER,
   appointment: { url: LTMS, label: "Open LTMS portal" },

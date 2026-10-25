@@ -69,14 +69,15 @@ Outdated-info flags land in the `OutdatedFlag` table with `status = "open"`. Rev
 ## Performance
 
 The site is built for low-end phones and slow connections:
-- Pages are static HTML.
-- Only small interactive "islands" ship JavaScript: search, checklist boxes, share, report dialog and wait times.
-- Animations are CSS-only.
-- Fuse.js loads on first use of the search box.
-- Wait times only load when that section scrolls into view.
-- Variant filtering is pure CSS (`:has()`).
+- Pages are static HTML. Guides arrive complete, with no loading skeleton and nothing that depends on JavaScript to appear.
+- Text uses the device's **system font**, so there's no web font to download and no text jump while one loads.
+- Only small interactive "islands" ship JavaScript: search, checklist boxes, share, report dialog and wait times. The homepage guide list is plain server HTML.
+- Fuse.js loads on first use of the search box, and wait times load only when that section scrolls into view.
+- Variant filtering is pure CSS (`:has()`), there are no entrance animations, and off-screen sections skip rendering until scrolled near (`content-visibility`).
 
-A guide page loads about 155 KB of gzipped JS, of which roughly 138 KB is the React/Next.js baseline. Avoid adding heavy client libraries.
+On a simulated budget phone (4× CPU slowdown, 1.6 Mbps, empty cache), pages paint their main content in about 0.7 s, finish loading in about 1.3 s, and have no layout shift. A guide page loads about 155 KB of gzipped JS, of which roughly 138 KB is the React/Next.js baseline. Avoid adding heavy client libraries or web fonts.
+
+The site always opens in **light mode**. The header toggle switches to dark mode, and the choice is remembered on that device.
 
 ## Moving to Postgres later
 

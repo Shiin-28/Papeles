@@ -4,7 +4,7 @@ import { reportKey } from "@/lib/verification";
 
 export function ProcessingList({ items }: { items: ProcessingTime[] }) {
   return (
-    <ul className="divide-y rounded-2xl border bg-card">
+    <ul className="divide-y rounded-lg border bg-card">
       {items.map((p) => (
         <li key={p.id} className="space-y-1 p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

@@ -5,7 +5,7 @@ export function SectionNav({ sections }: { sections: { id: string; label: string
       aria-label="On this page"
       className="sticky top-14 z-30 -mx-4 border-b bg-background px-4 print:hidden"
     >
-      <ul className="flex gap-1 overflow-x-auto py-2 text-sm">
+      <ul className="no-scrollbar flex gap-1 overflow-x-auto py-2 text-sm">
         {sections.map((s) => (
           <li key={s.id} className="shrink-0">
             <a

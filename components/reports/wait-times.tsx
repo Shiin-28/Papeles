@@ -52,7 +52,7 @@ export function WaitTimes({
 
   return (
     <div ref={rootRef} className="space-y-4">
-      <div className="rounded-2xl border bg-card">
+      <div className="rounded-lg border bg-card">
         {state.status === "ready" ? (
           <ul className="divide-y">
             {offices.map((office) => {
@@ -100,7 +100,7 @@ export function WaitTimes({
         )}
       </div>
 
-      <details className="group rounded-2xl border bg-card">
+      <details className="group rounded-lg border bg-card">
         <summary className="flex cursor-pointer list-none items-center gap-2 p-4 font-medium [&::-webkit-details-marker]:hidden">
           <Timer className="size-4 text-primary" aria-hidden />
           Share your wait time

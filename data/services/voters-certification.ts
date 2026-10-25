@@ -11,6 +11,7 @@ const VOTER_ID_FAQ =
 
 export const votersCertification = {
   slug: "voters-certification",
+  category: "ids",
   name: "Voter's Certification (COMELEC)",
   shortName: "Voter's Certification",
   agency: {

@@ -35,7 +35,7 @@ export function StaleWarning({
   return (
     <div
       role="note"
-      className="flex gap-3 rounded-xl border border-warning-border bg-warning p-4 text-sm text-warning-foreground"
+      className="flex gap-3 rounded-md border border-warning-border bg-warning p-4 text-sm text-warning-foreground"
     >
       <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
       <div>

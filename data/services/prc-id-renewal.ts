@@ -11,6 +11,7 @@ const LERIS = "https://online.prc.gov.ph";
 
 export const prcIdRenewal = {
   slug: "prc-id-renewal",
+  category: "ids",
   name: "PRC ID Renewal (Professional ID Card)",
   shortName: "PRC ID",
   agency: {

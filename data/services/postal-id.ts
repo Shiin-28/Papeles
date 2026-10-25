@@ -14,6 +14,7 @@ const FORM =
 
 export const postalId = {
   slug: "postal-id",
+  category: "ids",
   name: "Postal ID",
   shortName: "Postal ID",
   agency: {
@@ -24,7 +25,6 @@ export const postalId = {
   summary:
     "A government-issued ID that also verifies your address. Apply in person at a Post Office capturing site, and the card is delivered to your mailing address.",
   keywords: ["postal id", "phlpost", "post office id", "improved postal id", "pid"],
-  popular: true,
   lastVerified: "2026-10-25",
   sourceUrl: REQUIREMENTS,
   online: {

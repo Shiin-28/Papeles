@@ -12,7 +12,7 @@ export function VariantPicker({ slug, variants }: { slug: string; variants: Vari
   return (
     <fieldset className="min-w-0 print:hidden">
       <legend className="mb-2 text-sm font-medium">Which applies to you?</legend>
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
         {variants.map((v) => (
           <label
             key={v.id}

@@ -22,6 +22,7 @@ const ACCEPTABLE_IDS = [
 
 export const birTin = {
   slug: "bir-tin",
+  category: "tax",
   name: "TIN (Taxpayer Identification Number)",
   shortName: "TIN",
   agency: {
@@ -44,7 +45,6 @@ export const birTin = {
     "eo 98",
     "first time job seeker",
   ],
-  popular: true,
   lastVerified: "2026-10-25",
   sourceUrl: CHARTER,
   appointment: { url: ORUS, label: "Apply online (ORUS)" },

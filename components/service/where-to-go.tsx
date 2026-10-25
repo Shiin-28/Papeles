@@ -14,7 +14,7 @@ export function WhereToGo({ service }: { service: Service }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-3 rounded-2xl border bg-card p-4">
+      <div className="flex gap-3 rounded-lg border bg-card p-4">
         <Laptop className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
         <div className="min-w-0 space-y-1">
           <p className="font-medium">
@@ -34,7 +34,7 @@ export function WhereToGo({ service }: { service: Service }) {
       {offices.length > 0 && (
         <ul className="grid gap-3 sm:grid-cols-2">
           {offices.map((o) => (
-            <li key={o.id} className="space-y-1.5 rounded-2xl border bg-card p-4">
+            <li key={o.id} className="space-y-1.5 rounded-lg border bg-card p-4">
               <p className="flex items-start gap-2 font-medium leading-snug">
                 <Building2 className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
                 {o.name}

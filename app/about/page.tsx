@@ -54,7 +54,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-warning-border bg-warning p-5 text-sm text-warning-foreground">
+      <div className="rounded-lg border border-warning-border bg-warning p-5 text-sm text-warning-foreground">
         <p className="font-semibold">Papeles is not a government website.</p>
         <p className="mt-1">
           We aren&apos;t affiliated with DFA, NBI, PSA, LTO, BIR, or any agency. We never ask for
@@ -89,7 +89,7 @@ export default function AboutPage() {
           agency&apos;s official list. Each agency decides which IDs it accepts, so always check the
           accepted-ID list in the guide or on the agency&apos;s official website.
         </p>
-        <ul className="divide-y rounded-2xl border bg-card text-sm">
+        <ul className="divide-y rounded-lg border bg-card text-sm">
           {COMMON_IDS.map((id) => (
             <li key={id.name} className="space-y-1 p-3">
               <div className="flex flex-wrap justify-between gap-x-4 gap-y-0.5">

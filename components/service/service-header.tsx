@@ -8,7 +8,7 @@ import { countUnverified } from "@/lib/verification";
 import { cn } from "@/lib/utils";
 
 const buttonBase =
-  "inline-flex h-11 items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none";
+  "inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold transition-colors focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-none";
 
 export function ServiceHeader({
   service,
@@ -33,7 +33,7 @@ export function ServiceHeader({
       </Link>
 
       <div className="flex items-start gap-4">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary print:hidden">
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary print:hidden">
           <ServiceIcon slug={service.slug} className="size-6" />
         </span>
         <div className="min-w-0 space-y-1">

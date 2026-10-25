@@ -7,7 +7,7 @@ import { reportKey } from "@/lib/verification";
 export function FeesList({ fees, payment }: { fees: Fee[]; payment: Payment }) {
   return (
     <div className="space-y-4">
-      <ul className="divide-y rounded-2xl border bg-card">
+      <ul className="divide-y rounded-lg border bg-card">
         {fees.map((fee) => (
           <li key={fee.id} {...appliesAttr(fee)} className="flex gap-4 p-4">
             <div className="min-w-0 flex-1 space-y-1">
@@ -22,7 +22,7 @@ export function FeesList({ fees, payment }: { fees: Fee[]; payment: Payment }) {
         ))}
       </ul>
 
-      <div className="space-y-2 rounded-2xl border bg-card p-4">
+      <div className="space-y-2 rounded-lg border bg-card p-4">
         <p className="font-medium">How to pay</p>
         {isTodo(payment.methods) ? (
           <TodoValue />
