@@ -28,7 +28,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${jakarta.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
