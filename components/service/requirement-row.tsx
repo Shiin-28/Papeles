@@ -1,21 +1,17 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { isTodo, type Requirement } from "@/data/schema";
-import { ItemMeta, TodoValue } from "@/components/service/item-meta";
+import { ItemMeta } from "@/components/service/item-meta";
 import { formatCopy } from "@/lib/format";
 import { reportKey } from "@/lib/verification";
 
 /** Content of one requirement. The checklist adds the checkbox around it. */
-export function RequirementRow({ req }: { req: Requirement }) {
-  // An unverified item already shows a "Not yet verified" chip, so skip its TODO copy line.
+export function RequirementRow({ req, note }: { req: Requirement; note?: boolean }) {
+  // Unknown values are simply left out; the section title shows the verification status.
   const copy =
-    req.copy === undefined || (isTodo(req.copy) && req.lastVerified === null) ? null : isTodo(
-        req.copy,
-      ) ? (
-      <TodoValue />
-    ) : (
-      formatCopy(req.copy, isTodo(req.copies) ? undefined : req.copies)
-    );
+    req.copy === undefined || isTodo(req.copy)
+      ? null
+      : formatCopy(req.copy, isTodo(req.copies) ? undefined : req.copies);
 
   return (
     <div className="min-w-0 flex-1 space-y-1.5">
@@ -33,7 +29,7 @@ export function RequirementRow({ req }: { req: Requirement }) {
       {req.acceptableIds !== undefined &&
         (isTodo(req.acceptableIds) ? (
           <p className="text-sm text-muted-foreground">
-            Accepted IDs: <TodoValue />{" "}
+            The list of accepted IDs isn&apos;t here yet.{" "}
             <Link
               href="/about#common-ids"
               className="text-primary underline-offset-4 hover:underline print:hidden"
@@ -68,6 +64,7 @@ export function RequirementRow({ req }: { req: Requirement }) {
       <ItemMeta
         item={req}
         report={reportKey("requirement", req.id)}
+        note={note}
         className="pt-0.5 print:hidden"
       />
     </div>

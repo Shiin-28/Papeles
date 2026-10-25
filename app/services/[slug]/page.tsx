@@ -28,7 +28,8 @@ import { CheckItem } from "@/components/checklist/check-item";
 import { ChecklistProgress } from "@/components/checklist/checklist-progress";
 import { WaitTimes } from "@/components/reports/wait-times";
 import { ReportOutdated } from "@/components/reports/report-outdated";
-import { reportOptions } from "@/lib/verification";
+import { itemsNeedingNote, needsItemNote, reportOptions, variantKeys } from "@/lib/verification";
+import { SectionStatus } from "@/components/service/section-status";
 import { AtAGlance } from "@/components/service/at-a-glance";
 
 export function generateStaticParams() {
@@ -72,6 +73,20 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const variants = service.variants && service.variants.length > 1 ? service.variants : undefined;
   const officialUrl = isTodo(service.agency.officialUrl) ? null : service.agency.officialUrl;
 
+  // Verification shows once per section title; items only get a note in partly verified sections.
+  const keys = variantKeys(service);
+  const feeItems = [...service.fees, service.payment];
+  const whereItems = [service.online, ...service.offices];
+  const notes = {
+    requirements: itemsNeedingNote(service.requirements, keys),
+    steps: itemsNeedingNote(service.steps, keys),
+    fees: itemsNeedingNote(service.fees, keys, [service.payment]),
+    payment: needsItemNote(service.payment, feeItems, keys),
+    processing: itemsNeedingNote(service.processingTimes, keys),
+    offices: itemsNeedingNote(service.offices, keys, [service.online]),
+    online: needsItemNote(service.online, whereItems, keys),
+  };
+
   return (
     <div id={GUIDE_ID} className="mx-auto max-w-7xl px-4 pt-6 pb-16 lg:px-8 print:p-0">
       <VariantStyles service={service} />
@@ -106,6 +121,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             title="Requirements"
             icon={ListChecks}
             description="Tick off what you already have. Bring everything on this list."
+            status={<SectionStatus items={service.requirements} keys={keys} />}
           >
             <ChecklistProgress
               slug={service.slug}
@@ -124,7 +140,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                   className="checklist-row flex gap-3 p-4 transition-colors has-checked:bg-muted/50 print:break-inside-avoid"
                 >
                   <CheckItem slug={service.slug} id={req.id} label={req.name} />
-                  <RequirementRow req={req} />
+                  <RequirementRow req={req} note={notes.requirements.has(req.id)} />
                 </li>
               ))}
             </ul>
@@ -139,8 +155,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             title="Step by step"
             icon={Footprints}
             className="defer-render print:hidden"
+            status={<SectionStatus items={service.steps} keys={keys} />}
           >
-            <StepsList steps={service.steps} />
+            <StepsList steps={service.steps} notes={notes.steps} />
           </Section>
 
           <Section
@@ -148,8 +165,14 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             title="Fees"
             icon={CircleDollarSign}
             className="defer-render print:hidden"
+            status={<SectionStatus items={feeItems} keys={keys} />}
           >
-            <FeesList fees={service.fees} payment={service.payment} />
+            <FeesList
+              fees={service.fees}
+              payment={service.payment}
+              notes={notes.fees}
+              paymentNote={notes.payment}
+            />
           </Section>
 
           <Section
@@ -157,8 +180,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             title="Processing time"
             icon={Clock}
             className="defer-render print:hidden"
+            status={<SectionStatus items={service.processingTimes} keys={keys} />}
           >
-            <ProcessingList items={service.processingTimes} />
+            <ProcessingList items={service.processingTimes} notes={notes.processing} />
           </Section>
 
           <Section
@@ -166,8 +190,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             title="Where to go"
             icon={MapPin}
             className="defer-render print:hidden"
+            status={<SectionStatus items={whereItems} keys={keys} />}
           >
-            <WhereToGo service={service} />
+            <WhereToGo service={service} notes={notes.offices} onlineNote={notes.online} />
           </Section>
 
           {service.offices.length > 0 && (

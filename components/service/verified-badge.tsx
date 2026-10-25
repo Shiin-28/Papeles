@@ -42,25 +42,17 @@ export function VerifiedDate({ date, className }: { date: ISODate | null; classN
   );
 }
 
-/** Small chip for individual items (requirements, fees, …). */
-export function ItemVerifiedChip({ date }: { date: ISODate | null }) {
+/**
+ * Section-level "May be outdated" pill: shown when any verified item in the section was last
+ * checked more than 90 days ago. Needs today's date, so it fills in after hydration.
+ */
+export function StaleBadge({ dates }: { dates: ISODate[] }) {
   const now = useNow();
-
-  if (date === null) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-warning-border bg-warning px-2 py-0.5 text-xs font-medium text-warning-foreground">
-        <CircleHelp className="size-3" aria-hidden />
-        Not yet verified
-      </span>
-    );
-  }
-  if (now && isStale(date, now)) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-warning-border bg-warning px-2 py-0.5 text-xs font-medium text-warning-foreground">
-        <Clock className="size-3" aria-hidden />
-        Checked {formatDate(date)}
-      </span>
-    );
-  }
-  return null;
+  if (!now || !dates.some((d) => isStale(d, now))) return null;
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full border border-warning-border bg-warning px-2 py-0.5 text-xs font-medium text-warning-foreground">
+      <Clock className="size-3" aria-hidden />
+      May be outdated
+    </span>
+  );
 }

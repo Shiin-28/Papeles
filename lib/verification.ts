@@ -96,3 +96,49 @@ export function reportOptions(service: Service) {
     group: GROUP_LABEL[i.type],
   }));
 }
+
+/** Anything with a verification date that may apply only to some variants. */
+export interface Dated {
+  lastVerified: ISODate | null;
+  appliesTo?: string[];
+}
+
+/** Variant ids to evaluate a section for; `[null]` when the guide has no variant picker. */
+export function variantKeys(service: Service): (string | null)[] {
+  return service.variants && service.variants.length > 1
+    ? service.variants.map((v) => v.id)
+    : [null];
+}
+
+export function sectionCounts(items: Dated[], variant: string | null) {
+  const visible = forVariant(items, variant);
+  const verifiedDates = visible.flatMap((i) => (i.lastVerified ? [i.lastVerified] : []));
+  return {
+    total: visible.length,
+    unverified: visible.length - verifiedDates.length,
+    verifiedDates,
+  };
+}
+
+/**
+ * Whether an item should carry its own "Not yet verified" note. Only needed when its section is
+ * partly verified (for a variant the item belongs to); otherwise the section title says it all.
+ */
+export function needsItemNote(item: Dated, items: Dated[], keys: (string | null)[]): boolean {
+  if (item.lastVerified !== null) return false;
+  const relevant = item.appliesTo ? keys.filter((k) => k && item.appliesTo!.includes(k)) : keys;
+  return relevant.some((k) => {
+    const { total, unverified } = sectionCounts(items, k);
+    return unverified > 0 && unverified < total;
+  });
+}
+
+/** Ids of the items in a section that need their own note. */
+export function itemsNeedingNote<T extends Dated & { id: string }>(
+  items: T[],
+  keys: (string | null)[],
+  extra: Dated[] = [],
+): Set<string> {
+  const all = [...items, ...extra];
+  return new Set(items.filter((i) => needsItemNote(i, all, keys)).map((i) => i.id));
+}

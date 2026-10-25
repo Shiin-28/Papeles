@@ -6,6 +6,7 @@ export function Section({
   title,
   icon: Icon,
   description,
+  status,
   actions,
   children,
   className,
@@ -14,6 +15,8 @@ export function Section({
   title: string;
   icon: LucideIcon;
   description?: React.ReactNode;
+  /** Verification label shown next to the title (see SectionStatus). */
+  status?: React.ReactNode;
   actions?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
@@ -26,13 +29,16 @@ export function Section({
     >
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="space-y-1">
-          <h2
-            id={`${id}-title`}
-            className="flex items-center gap-2 text-xl font-semibold tracking-tight"
-          >
-            <Icon className="size-5 text-primary" aria-hidden />
-            {title}
-          </h2>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h2
+              id={`${id}-title`}
+              className="flex items-center gap-2 text-xl font-semibold tracking-tight"
+            >
+              <Icon className="size-5 text-primary" aria-hidden />
+              {title}
+            </h2>
+            {status}
+          </div>
           {description && <p className="text-sm text-muted-foreground">{description}</p>}
         </div>
         {actions}

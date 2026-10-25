@@ -9,8 +9,13 @@ const ONLINE_SHORT: Record<OnlineAvailability, string> = {
   none: "In person only",
 };
 
+/** Unknown value: a plain dash (the guide's sections carry the verification labels). */
 function Unverified() {
-  return <span className="text-muted-foreground italic">Not yet verified</span>;
+  return (
+    <span className="font-normal text-muted-foreground" title="Not yet verified">
+      —<span className="sr-only">not yet verified</span>
+    </span>
+  );
 }
 
 /**

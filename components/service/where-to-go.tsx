@@ -9,7 +9,15 @@ const ONLINE_LABEL: Record<OnlineAvailability, string> = {
   none: "In person only",
 };
 
-export function WhereToGo({ service }: { service: Service }) {
+export function WhereToGo({
+  service,
+  notes,
+  onlineNote,
+}: {
+  service: Service;
+  notes?: Set<string>;
+  onlineNote?: boolean;
+}) {
   const { online, offices, officeLocatorUrl } = service;
 
   return (
@@ -27,7 +35,7 @@ export function WhereToGo({ service }: { service: Service }) {
             )}
           </p>
           {online.notes && <p className="text-sm text-muted-foreground">{online.notes}</p>}
-          <ItemMeta item={online} report={reportKey("online")} />
+          <ItemMeta item={online} report={reportKey("online")} note={onlineNote} />
         </div>
       </div>
 
@@ -42,16 +50,14 @@ export function WhereToGo({ service }: { service: Service }) {
               <p className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
                 <span>
-                  {isTodo(o.address) ? <TodoValue /> : o.address}
-                  <span className="block text-xs">
+                  {!isTodo(o.address) && <span className="block">{o.address}</span>}
+                  <span className={isTodo(o.address) ? "block" : "block text-xs"}>
                     {o.city}, {o.region}
                   </span>
                 </span>
               </p>
-              {o.hours && (
-                <p className="text-sm text-muted-foreground">
-                  Hours: {isTodo(o.hours) ? <TodoValue /> : o.hours}
-                </p>
+              {o.hours && !isTodo(o.hours) && (
+                <p className="text-sm text-muted-foreground">Hours: {o.hours}</p>
               )}
               {o.notes && <p className="text-sm text-muted-foreground">{o.notes}</p>}
               {!isTodo(o.address) && (
@@ -65,7 +71,7 @@ export function WhereToGo({ service }: { service: Service }) {
                   <ExternalLink className="size-3.5" aria-hidden />
                 </a>
               )}
-              <ItemMeta item={o} report={reportKey("office", o.id)} />
+              <ItemMeta item={o} report={reportKey("office", o.id)} note={notes?.has(o.id)} />
             </li>
           ))}
         </ul>

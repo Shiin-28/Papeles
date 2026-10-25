@@ -1,26 +1,31 @@
 import { ExternalLink, Flag } from "lucide-react";
 import { isTodo, type Verifiable } from "@/data/schema";
-import { ItemVerifiedChip } from "@/components/service/verified-badge";
 import { cn } from "@/lib/utils";
 
 /**
- * Verification chip, "Source" link, and "Report" button shown under each requirement, fee, etc.
- * The Report button is plain HTML (`data-report`); the report dialog listens for clicks on it.
+ * "Source" link and "Report" button under each requirement, fee, etc. Verification status lives
+ * on the section title; an item only gets its own note when its section is partly verified.
+ * Everything here is plain HTML: the report dialog listens for clicks on `data-report`.
  */
 export function ItemMeta({
   item,
   report,
+  note,
   className,
 }: {
   item: Verifiable;
   /** reportKey(type, id) for this item. */
   report?: string;
+  /** Show "Not yet verified" on this item (see needsItemNote). */
+  note?: boolean;
   className?: string;
 }) {
   const hasSource = !isTodo(item.sourceUrl);
   return (
     <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1 empty:hidden", className)}>
-      <ItemVerifiedChip date={item.lastVerified} />
+      {note && (
+        <span className="text-xs font-medium text-warning-foreground">Not yet verified</span>
+      )}
       {hasSource && <SourceLink href={item.sourceUrl} />}
       {report && (
         <button
@@ -51,16 +56,14 @@ export function SourceLink({ href, label = "Source" }: { href: string; label?: s
   );
 }
 
-/** Placeholder for any value that is still `TODO: verify`. */
+/**
+ * Placeholder for a value that is still `TODO: verify`: a plain dash. The section title already
+ * says the section isn't verified, so we don't repeat it on every value.
+ */
 export function TodoValue({ className }: { className?: string }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-md bg-muted px-1.5 py-0.5 text-sm font-normal text-muted-foreground italic",
-        className,
-      )}
-    >
-      Not yet verified
+    <span className={cn("font-normal text-muted-foreground", className)} title="Not yet verified">
+      —<span className="sr-only">not yet verified</span>
     </span>
   );
 }
