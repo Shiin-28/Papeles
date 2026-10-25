@@ -35,6 +35,15 @@ export interface Variant {
   label: string;
 }
 
+/** An official form people download and fill out. Only link files on official domains. */
+export interface FormFile {
+  name: string;
+  url: string;
+  format: "PDF" | "Word";
+  /** Shown on the button so people on mobile data know the download size. */
+  sizeKB?: number;
+}
+
 export type CopyType = "original" | "photocopy" | "original-and-photocopy" | "scanned";
 
 export interface Requirement extends Verifiable {
@@ -52,6 +61,8 @@ export interface Requirement extends Verifiable {
   acceptableIds?: Maybe<string[]>;
   /** Slug of another Papeles guide that explains how to get this document. */
   relatedService?: string;
+  /** Official form to download and fill out, if this requirement is a form. */
+  form?: FormFile;
 }
 
 export interface Step extends Verifiable {
@@ -61,6 +72,8 @@ export interface Step extends Verifiable {
   /** Can this step be done online? */
   online?: boolean;
   url?: Maybe<string>;
+  /** Official form to download for this step. */
+  form?: FormFile;
   appliesTo?: string[];
 }
 

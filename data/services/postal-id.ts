@@ -38,6 +38,7 @@ export const postalId = {
     {
       id: "application-form",
       name: "Accomplished Postal ID application form",
+      form: { name: "Postal ID application form", url: FORM, format: "PDF", sizeKB: 1376 },
       notes:
         "Write in capital letters. PHLPost's announcement allows black or blue ink, but the form itself says black ink only, so use black.",
       lastVerified: "2026-10-25",
@@ -105,7 +106,7 @@ export const postalId = {
       description:
         "Download it from PHLPost's website or get one at a capturing station, and fill it out before you go.",
       online: true,
-      url: FORM,
+      form: { name: "Postal ID application form", url: FORM, format: "PDF", sizeKB: 1376 },
       lastVerified: "2026-10-25",
       sourceUrl: FEES,
     },

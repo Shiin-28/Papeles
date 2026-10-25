@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { isTodo, type Requirement } from "@/data/schema";
 import { ItemMeta } from "@/components/service/item-meta";
+import { FormDownload } from "@/components/service/form-download";
 import { formatCopy } from "@/lib/format";
 import { reportKey } from "@/lib/verification";
 
@@ -25,6 +26,7 @@ export function RequirementRow({ req, note }: { req: Requirement; note?: boolean
       </p>
       {copy && <p className="text-sm text-muted-foreground">{copy}</p>}
       {req.notes && <p className="text-sm text-muted-foreground">{req.notes}</p>}
+      {req.form && <FormDownload form={req.form} className="mt-1" />}
 
       {req.acceptableIds !== undefined &&
         (isTodo(req.acceptableIds) ? (

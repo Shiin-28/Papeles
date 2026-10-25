@@ -30,6 +30,7 @@ import { WaitTimes } from "@/components/reports/wait-times";
 import { ReportOutdated } from "@/components/reports/report-outdated";
 import { itemsNeedingNote, needsItemNote, reportOptions, variantKeys } from "@/lib/verification";
 import { SectionStatus } from "@/components/service/section-status";
+import { FormsCallout } from "@/components/service/forms-callout";
 import { AtAGlance } from "@/components/service/at-a-glance";
 
 export function generateStaticParams() {
@@ -132,6 +133,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 conditional,
               }))}
             />
+            <FormsCallout requirements={service.requirements} />
             <ul className="divide-y rounded-lg border bg-card">
               {service.requirements.map((req) => (
                 <li

@@ -58,6 +58,12 @@ export const prcIdRenewal = {
       name: "CPD certificates or CPDAS screenshots showing your earned CPD units",
       notes:
         "If you don't have enough CPD units, you can renew by signing the CPD undertaking included in the renewal application.",
+      form: {
+        name: "PRC renewal application (includes CPD undertaking)",
+        url: "https://www.prc.gov.ph/sites/default/files/PRD-27%20Rev%2002%20Application%20for%20Renewal%20of%20Professional%20ID%20Card_feb%2015%202024.docx",
+        format: "Word",
+        sizeKB: 71,
+      },
       lastVerified: "2026-10-25",
       sourceUrl: RENEWAL_PAGE,
     },
