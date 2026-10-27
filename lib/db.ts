@@ -1,7 +1,7 @@
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@/generated/prisma/client";
 
-// Reuse one client across hot reloads in development.
+// One client per server process (also survives hot reloads in development).
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function createClient() {
@@ -12,5 +12,14 @@ function createClient() {
   return new PrismaClient({ adapter: new PrismaLibSql({ url, authToken }) });
 }
 
-export const db = globalForPrisma.prisma ?? createClient();
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+/**
+ * The database client, created on first use rather than when this file is imported. That way
+ * `next build` never needs DATABASE_URL, and a missing setting only affects the API routes
+ * that use the database (with a clear error) instead of failing the whole deploy.
+ */
+export const db = new Proxy({} as PrismaClient, {
+  get(_target, prop) {
+    const client = (globalForPrisma.prisma ??= createClient());
+    return Reflect.get(client, prop, client);
+  },
+});
