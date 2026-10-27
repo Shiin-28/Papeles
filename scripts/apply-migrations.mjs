@@ -18,7 +18,23 @@ if (!url) {
   console.error("DATABASE_URL is not set.");
   process.exit(1);
 }
-const db = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN || undefined });
+if (url.startsWith("file:")) {
+  console.error(
+    [
+      `DATABASE_URL points to a local file (${url}), not Turso.`,
+      "This command is for the hosted database. Put your Turso values in .env first:",
+      '  DATABASE_URL="libsql://your-db-name-yourname.turso.io"',
+      '  DATABASE_AUTH_TOKEN="your-token"',
+      "then save the file (Ctrl+S) and run it again. For the local database, use: pnpm db:migrate",
+    ].join("\n"),
+  );
+  process.exit(1);
+}
+const authToken = process.env.DATABASE_AUTH_TOKEN || undefined;
+if (!authToken)
+  console.warn("Warning: DATABASE_AUTH_TOKEN is empty; Turso will reject the connection.");
+console.log(`Target: ${new URL(url).host}`);
+const db = createClient({ url, authToken });
 
 await db.execute(
   "CREATE TABLE IF NOT EXISTS _papeles_migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL)",
