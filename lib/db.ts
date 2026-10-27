@@ -7,7 +7,9 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 function createClient() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set. Copy .env.example to .env.");
-  return new PrismaClient({ adapter: new PrismaLibSql({ url }) });
+  // DATABASE_AUTH_TOKEN is only needed for a hosted libSQL database (e.g. Turso on Vercel).
+  const authToken = process.env.DATABASE_AUTH_TOKEN || undefined;
+  return new PrismaClient({ adapter: new PrismaLibSql({ url, authToken }) });
 }
 
 export const db = globalForPrisma.prisma ?? createClient();

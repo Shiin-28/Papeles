@@ -28,14 +28,14 @@ corepack pnpm dev              # http://localhost:3000
 
 ### Scripts
 
-| Command | What it does |
-|---|---|
-| `pnpm dev` | Dev server |
-| `pnpm build` / `pnpm start` | Production build / server |
-| `pnpm lint`, `pnpm typecheck`, `pnpm format` | ESLint, TypeScript, Prettier |
-| `pnpm db:migrate` | Apply schema changes in development |
-| `pnpm db:deploy` | Apply migrations in production |
-| `pnpm db:studio` | Browse wait-time reports and outdated-info flags |
+| Command                                      | What it does                                     |
+| -------------------------------------------- | ------------------------------------------------ |
+| `pnpm dev`                                   | Dev server                                       |
+| `pnpm build` / `pnpm start`                  | Production build / server                        |
+| `pnpm lint`, `pnpm typecheck`, `pnpm format` | ESLint, TypeScript, Prettier                     |
+| `pnpm db:migrate`                            | Apply schema changes in development              |
+| `pnpm db:deploy`                             | Apply migrations in production                   |
+| `pnpm db:studio`                             | Browse wait-time reports and outdated-info flags |
 
 ## Editing service data
 
@@ -58,6 +58,7 @@ To add a service, create a file next to the others and add it to [`data/services
 - `POST /api/flags`: `{ serviceSlug, itemType, itemId?, message? }`
 
 Inputs are validated with Zod against the real service data. Spam protection includes:
+
 - a honeypot field
 - per-IP rate limits: 5 wait reports and 10 flags per hour, counted in the database
 - one wait report per branch per day per IP
@@ -69,6 +70,7 @@ Outdated-info flags land in the `OutdatedFlag` table with `status = "open"`. Rev
 ## Performance
 
 The site is built for low-end phones and slow connections:
+
 - Pages are static HTML. Guides arrive complete, with no loading skeleton and nothing that depends on JavaScript to appear.
 - Text uses the device's **system font**, so there's no web font to download and no text jump while one loads.
 - Only small interactive "islands" ship JavaScript: search, checklist boxes, share, report dialog and wait times. The homepage guide list is plain server HTML.
@@ -78,6 +80,14 @@ The site is built for low-end phones and slow connections:
 On a simulated budget phone (4× CPU slowdown, 1.6 Mbps, empty cache), pages paint their main content in about 0.7 s, finish loading in about 1.3 s, and have no layout shift. A guide page loads about 155 KB of gzipped JS, of which roughly 138 KB is the React/Next.js baseline. Avoid adding heavy client libraries or web fonts.
 
 The site always opens in **light mode**. The header toggle switches to dark mode, and the choice is remembered on that device.
+
+## Deploying to Vercel
+
+1. Push this repo to GitHub with `git push` (don't use "Add files via upload": it skips folders and can upload `.env`).
+2. Create a free [Turso](https://turso.tech) database and an auth token. Vercel can't keep a SQLite file between requests.
+3. In Vercel → Project → Settings → Environment Variables, set `DATABASE_URL` (the `libsql://…` URL), `DATABASE_AUTH_TOKEN`, and `IP_HASH_SALT` (a new random string).
+4. Create the tables once, from your computer: put the same `DATABASE_URL` and `DATABASE_AUTH_TOKEN` in `.env`, run `pnpm db:migrate:remote`, then switch `.env` back to the local file.
+5. Redeploy. Run `pnpm db:migrate:remote` again whenever you add a new migration.
 
 ## Moving to Postgres later
 

@@ -12,7 +12,8 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:migrate:remote": "node scripts/apply-migrations.mjs"
   },
   "dependencies": {
     "@libsql/client": "^0.18.0",
