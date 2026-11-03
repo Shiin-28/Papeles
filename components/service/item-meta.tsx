@@ -16,16 +16,14 @@ export function ItemMeta({
   item: Verifiable;
   /** reportKey(type, id) for this item. */
   report?: string;
-  /** Show "Not yet verified" on this item (see needsItemNote). */
+  /** Show "In progress" on this item (see needsItemNote). */
   note?: boolean;
   className?: string;
 }) {
   const hasSource = !isTodo(item.sourceUrl);
   return (
     <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1 empty:hidden", className)}>
-      {note && (
-        <span className="text-xs font-medium text-warning-foreground">Not yet verified</span>
-      )}
+      {note && <span className="text-xs font-medium text-warning-foreground">In progress</span>}
       {hasSource && <SourceLink href={item.sourceUrl} />}
       {report && (
         <button
@@ -62,8 +60,8 @@ export function SourceLink({ href, label = "Source" }: { href: string; label?: s
  */
 export function TodoValue({ className }: { className?: string }) {
   return (
-    <span className={cn("font-normal text-muted-foreground", className)} title="Not yet verified">
-      —<span className="sr-only">not yet verified</span>
+    <span className={cn("font-normal text-muted-foreground", className)} title="In progress">
+      —<span className="sr-only">in progress</span>
     </span>
   );
 }

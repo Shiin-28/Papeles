@@ -73,7 +73,7 @@ export function ServiceHeader({
           </a>
         ) : (
           <span className={cn(buttonBase, "bg-muted text-muted-foreground")}>
-            Official website: not yet verified
+            Official website link in progress
           </span>
         )}
         {appointmentUrl && (

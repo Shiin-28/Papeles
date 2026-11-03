@@ -12,8 +12,8 @@ const ONLINE_SHORT: Record<OnlineAvailability, string> = {
 /** Unknown value: a plain dash (the guide's sections carry the verification labels). */
 function Unverified() {
   return (
-    <span className="font-normal text-muted-foreground" title="Not yet verified">
-      —<span className="sr-only">not yet verified</span>
+    <span className="font-normal text-muted-foreground" title="In progress">
+      —<span className="sr-only">in progress</span>
     </span>
   );
 }

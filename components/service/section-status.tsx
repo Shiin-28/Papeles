@@ -1,11 +1,11 @@
-import { CircleHelp } from "lucide-react";
+import { Construction } from "lucide-react";
 import { StaleBadge } from "@/components/service/verified-badge";
 import { sectionCounts, type Dated } from "@/lib/verification";
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center gap-1 rounded-full border border-warning-border bg-warning px-2 py-0.5 text-xs font-medium text-warning-foreground">
-      <CircleHelp className="size-3" aria-hidden />
+      <Construction className="size-3" aria-hidden />
       {children}
     </span>
   );
@@ -21,9 +21,9 @@ export function SectionStatus({ items, keys }: { items: Dated[]; keys: (string |
     if (total === 0) return null;
     const label =
       unverified === total ? (
-        <Pill>Not yet verified</Pill>
+        <Pill>In progress</Pill>
       ) : unverified > 0 ? (
-        <Pill>Partly verified</Pill>
+        <Pill>Some details in progress</Pill>
       ) : (
         <StaleBadge dates={verifiedDates} />
       );

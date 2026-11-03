@@ -1,6 +1,6 @@
 "use client";
 
-import { TriangleAlert } from "lucide-react";
+import { Construction, TriangleAlert } from "lucide-react";
 import type { ISODate } from "@/data/schema";
 import { useNow } from "@/hooks/use-now";
 import { isStale, STALE_AFTER_DAYS } from "@/lib/dates";
@@ -21,23 +21,27 @@ export function StaleWarning({
 
   const title =
     lastVerified === null
-      ? "This guide hasn't been verified yet"
+      ? "This guide is still in progress"
       : stale
         ? "May be outdated"
-        : `${unverifiedCount} ${unverifiedCount === 1 ? "item" : "items"} not yet verified`;
+        : `${unverifiedCount} ${unverifiedCount === 1 ? "detail" : "details"} still in progress`;
   const body =
     lastVerified === null
-      ? "We couldn't confirm these details on the official site yet. Double-check before you go."
+      ? "We're still confirming these details with the official source. Double-check on the official site before you go."
       : stale
         ? `Last checked more than ${STALE_AFTER_DAYS} days ago. Double-check the official site before you go.`
-        : "Items marked “Not yet verified” haven't been confirmed. Double-check them on the official site.";
+        : "We're still confirming the items marked “In progress”. Double-check them on the official site.";
 
   return (
     <div
       role="note"
       className="flex gap-3 rounded-md border border-warning-border bg-warning p-4 text-sm text-warning-foreground"
     >
-      <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
+      {lastVerified !== null && stale ? (
+        <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
+      ) : (
+        <Construction className="mt-0.5 size-4 shrink-0" aria-hidden />
+      )}
       <div>
         <p className="font-semibold">{title}</p>
         <p className="mt-0.5">

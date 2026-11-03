@@ -41,7 +41,7 @@ export function ServiceList({ services }: { services: Service[] }) {
                         {s.lastVerified ? (
                           <>Checked {formatDate(s.lastVerified)}</>
                         ) : (
-                          <span className="text-warning-foreground">Not yet verified</span>
+                          <span className="text-warning-foreground">Guide in progress</span>
                         )}
                       </span>
                     </span>

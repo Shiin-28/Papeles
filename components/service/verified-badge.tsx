@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, CircleHelp, Clock } from "lucide-react";
+import { BadgeCheck, Clock, Construction } from "lucide-react";
 import type { ISODate } from "@/data/schema";
 import { useNow } from "@/hooks/use-now";
 import { daysSince, formatDate, formatDaysAgo, isStale } from "@/lib/dates";
@@ -16,8 +16,8 @@ export function VerifiedDate({ date, className }: { date: ISODate | null; classN
   if (date === null) {
     return (
       <span className={cn("inline-flex items-center gap-1.5 text-warning-foreground", className)}>
-        <CircleHelp className="size-4 shrink-0" aria-hidden />
-        Not yet verified
+        <Construction className="size-4 shrink-0" aria-hidden />
+        Guide in progress
       </span>
     );
   }

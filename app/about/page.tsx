@@ -77,8 +77,8 @@ export default function AboutPage() {
             </li>
             <li>
               If something hasn&apos;t been checked in {STALE_AFTER_DAYS} days, we show a yellow
-              warning. Items marked &ldquo;Not yet verified&rdquo; haven&apos;t been confirmed at
-              all.
+              warning. Items marked &ldquo;In progress&rdquo; are ones we&apos;re still confirming
+              with the official source.
             </li>
             <li>We would rather leave something blank than guess.</li>
           </ul>

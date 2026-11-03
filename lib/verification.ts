@@ -121,7 +121,7 @@ export function sectionCounts(items: Dated[], variant: string | null) {
 }
 
 /**
- * Whether an item should carry its own "Not yet verified" note. Only needed when its section is
+ * Whether an item should carry its own "In progress" note. Only needed when its section is
  * partly verified (for a variant the item belongs to); otherwise the section title says it all.
  */
 export function needsItemNote(item: Dated, items: Dated[], keys: (string | null)[]): boolean {
